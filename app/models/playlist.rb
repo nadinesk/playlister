@@ -11,15 +11,23 @@ class Playlist < ActiveRecord::Base
   has_many :tvshows, through: :showlines
   belongs_to :user
 
-  def add_tvshow(tvshow_id)
-    enough_time, enough_emotional_capital = meet_requirements
+  def add_show(tvshow_id)
     showline = self.showlines.find_by(tvshow_id: tvshow_id)
+    enough_time, enough_emotional_capital = meet_requirements
     if showline
         "You have already added this tv show."
     else
-      showline=self.showline.build(tvshow_id: tvshow_id)
+        if enough_time && enough_emotional_capital
+          showline=self.showline.build(tvshow_id: tvshow_id
+          showline
+        elsif enough_time && !enough_emotional_capital
+          "Sorry. " + emotional_issue
+        elsif enough_emotional_capital && !enough_time
+          "Sorry. " + time_issue
+        else
+          "Sorry. " + emotional_issue + " and " + time_issue
+        end
     end
-    showline
   end
 
 
@@ -34,71 +42,54 @@ class Playlist < ActiveRecord::Base
 
   def checkout
     self.status = "submitted"
+    change_attributes
   end
 
-  def add_show
-    enough_time, enough_emotional_capital = meet_requirements
-    if enough_time && enough_emotional_capital
-      start_show
-    elsif enough_time && !enough_emotional_capital
-      "Sorry. " + emotional_issue
-    elsif enough_emotional_capital && !enough_time
-      "Sorry. " + time_issue
-    else
-      "Sorry. " + budget_issue + " and " + emotional_issue
+  def change_attributes
+
+    showlines.each do |showline|
+      total_time += showline.tvshow.time_commitment
+      total_stress += showline.tvshow.suspense_level
+    end
+
+    if self.status = "submitted"
+      new_happiness = self.user.happiness - self.tvshow.suspense_level
+      new_free_time = self.user.free_time - self.tvshow.time_commitment
+      self.user.update(
+        :happiness => new_happiness,
+        :free_time => new_free_time
+      )
     end
   end
 
   def meet_requirements
     enough_time, enough_emotional_capital = false
-    self.showlines.each do |showline|
+    showlines.each do |showline|
       total_time += showline.tvshow.time_commitment
       total_stress += showline.tvshow.suspense_level
     end
-
-    if self.user.free_time >= total_time
+    if user.free_time >= total_time
       enough_time = true
     end
-    if self.user.happiness >= self.tv_show.suspense_level
+    if user.happiness >= tv_show.suspense_level
       enough_emotional_capital = true
     end
     return [enough_time, enough_emotional_capital]
   end
 
-  def start_show
-    new_awakeness = self.user.awakness + self.tv_show.awakeness_rating
-    new_relaxation = self.user.relaxation + self.tv_show.relaxation_rating
-    new_happiness = self.user.happiness + self.tv_show.happiness_rating
-    new_budget =  self.user.budget - self.tv_show.cost
-    new_time =  self.user.time - self.tv_show.time_commitment
-    self.user.update(
-      :awakeness => new_awakeness,
-      :relaxation => new_relaxation,
-      :happiness => new_happiness,
-      :budget => new_budget,
-      :time => new_time,
-    )
-    "You can/should watch #{self.tv_show.name}!"
-  end
-
-  def budget_issue
-    "You do not have enough money to watch #{self.tv_show.title}."
-  end
-
   def time_issue
-    "You do not have enough time to watch #{self.tv_show.title}."
+    "You do not have enough time to watch #{self.tvshow.title}."
+  end
+
+  def emotional_issue
+    "Watching #{self.tvshow.title} will stress you out too much."
   end
 
 
 
+###############
 
-
-
-
-end
-
-
-
+  
 
 # see this from RAP solution #
 #class RidesController < ApplicationController
