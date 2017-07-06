@@ -1,22 +1,19 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id                     :integer          not null, primary key
-#  name                   :string
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  email                  :string           default(""), not null
-#  encrypted_password     :string           default(""), not null
-#  reset_password_token   :string
-#  reset_password_sent_at :datetime
-#  remember_created_at    :datetime
-#  sign_in_count          :integer          default(0), not null
-#  current_sign_in_at     :datetime
-#  last_sign_in_at        :datetime
-#  current_sign_in_ip     :string
-#  last_sign_in_ip        :string
-#
+#create_table "users", force: :cascade do |t|
+#  t.string   "name"
+#  t.integer  "current_playlist_id"
+#  t.datetime "created_at",                          null: false
+#  t.datetime "updated_at",                          null: false
+#  t.string   "email",                  default: "", null: false
+#  t.string   "encrypted_password",     default: "", null: false
+#  t.string   "reset_password_token"
+#  t.datetime "reset_password_sent_at"
+#  t.datetime "remember_created_at"
+#  t.integer  "sign_in_count",          default: 0,  null: false
+#  t.datetime "current_sign_in_at"
+#  t.datetime "last_sign_in_at"
+#  t.string   "current_sign_in_ip"
+#  t.string   "last_sign_in_ip"
+#end
 
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
@@ -24,17 +21,17 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable
 
-  has_many :carts
-  belongs_to :current_cart, :class_name => "Cart"
+  has_many :playlists
+  belongs_to :current_playlist, :class_name => "Playlist"
 
-  def create_current_cart
-    new_cart = carts.create
-    self.current_cart_id = new_cart.id
+  def create_current_playlist
+    new_playlist = playlists.create
+    self.current_playlist_id = new_playlist.id
     save
   end
 
   def remove_cart
-    self.current_cart_id = nil
+    self.current_playlist_id = nil
     save
   end
 

@@ -6,9 +6,9 @@
 #  t.integer  "mood_id"
 #  t.datetime "created_at",  null: false
 #  t.datetime "updated_at",  null: false
-end
+#end
 
-class TvShow < ActiveRecord::Base
+class Tvshow < ActiveRecord::Base
   belongs_to :mood
   has_many :showlines
 

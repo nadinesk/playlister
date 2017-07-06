@@ -1,14 +1,12 @@
-# == Schema Information
-#
-# Table name: line_items
-#
-#  id         :integer          not null, primary key
-#  item_id    :integer
-#  cart_id    :integer
-#  quantity   :integer          default(1)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
+
+  #create_table "showlines", force: :cascade do |t|
+  #  t.integer  "playlist_id"
+  #  t.integer  "tvshow_id"
+  #  t.integer  "times",   default: 1
+  #  t.datetime "created_at",             null: false
+  #  t.datetime "updated_at",             null: false
+  #end
+
 
 class Showline < ActiveRecord::Base
   belongs_to :tvshow

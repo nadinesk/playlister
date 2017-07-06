@@ -60,6 +60,16 @@ class Playlist < ActiveRecord::Base
     self.status = "submitted"
   end
 
+
+
+
+
+
+
+
+
+
+
   #def change_inventory
   #  if self.status = "submitted"
   #    self.line_items.each do |line_item|

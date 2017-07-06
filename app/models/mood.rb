@@ -6,5 +6,5 @@
   #end
 
 class Mood < ActiveRecord::Base
-  has_many :items
+  has_many :tvshows
 end
