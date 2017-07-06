@@ -11,7 +11,7 @@ class Playlist < ActiveRecord::Base
   has_many :tvshows, through: :showlines
   belongs_to :user
 
-  def add_show(tvshow_id)
+  def add_tvshow(tvshow_id)
     showline = self.showlines.find_by(tvshow_id: tvshow_id)
     enough_time, enough_emotional_capital = meet_requirements
     if showline
@@ -89,7 +89,7 @@ class Playlist < ActiveRecord::Base
 
 ###############
 
-  
+
 
 # see this from RAP solution #
 #class RidesController < ApplicationController
