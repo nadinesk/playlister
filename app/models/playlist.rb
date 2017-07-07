@@ -11,18 +11,24 @@ class Playlist < ActiveRecord::Base
   has_many :tvshows, through: :showlines
   belongs_to :user
 
+  
+  def save_show(tvshow_id)
+    showline=self.showlines.build(tvshow_id: tvshow_id)
+    showline
+  end
+
+
   def add_tvshow(tvshow_id)
 
-    @showline = self.showlines.find_by(tvshow_id: tvshow_id)
+    showline = self.showlines.find_by(tvshow_id: tvshow_id)
 
     enough_time, enough_emotional_capital = meet_requirements
     
-    if @showline
+    if showline
         "You have already added this tv show."
     else
-        if enough_time && enough_emotional_capital
-          @showline=self.showlines.build(tvshow_id: tvshow_id)
-          @showline
+        if enough_time && enough_emotional_capital          
+          "successfully added tv show"
         elsif enough_time && !enough_emotional_capital
           "Sorry. " + emotional_issue
         elsif enough_emotional_capital && !enough_time
@@ -48,12 +54,14 @@ class Playlist < ActiveRecord::Base
 
   def total_suspense
     s_total = 0
-    if self.showlines
-      self.showlines.each do |showline|
+    if self.user.current_playlist.showlines
+      
+      self.user.current_playlist.showlines.each do |showline|
+
         s_total += showline.tvshow.suspense_level
       end
     end
-    binding.pry
+    
     return s_total
 
     
@@ -61,10 +69,8 @@ class Playlist < ActiveRecord::Base
 
   def total_time
     time_total = 0
-    if self.showlines
-
-      self.showlines.each do |showline|
-        binding.pry
+    if self.user.current_playlist.showlines    
+      self.user.current_playlist.showlines.each do |showline|        
         time_total += showline.tvshow.time_commitment
       end
     end
@@ -86,8 +92,8 @@ class Playlist < ActiveRecord::Base
     end
 
     if self.status = "submitted"
-      new_happiness = self.user.happiness - self.tvshow.suspense_level
-      new_free_time = self.user.free_time - self.tvshow.time_commitment
+      new_happiness = self.user.happiness - total_suspense
+      new_free_time = self.user.free_time - total_time
       self.user.update(
         :happiness => new_happiness,
         :free_time => new_free_time
@@ -105,16 +111,20 @@ class Playlist < ActiveRecord::Base
     if user.happiness >= total_suspense
       enough_emotional_capital = true
     end
+
+    binding.pry
     return [enough_time, enough_emotional_capital]
 
   end
 
   def time_issue
-    "You do not have enough time to watch #{self.tvshow.title}."
+    
+    "You do not have enough time to watch this show."
   end
 
   def emotional_issue
-    "Watching #{self.tvshow.title} will stress you out too much."
+    
+    "Watching this show will stress you out too much."
   end
 
 end
