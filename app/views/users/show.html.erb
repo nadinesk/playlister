@@ -1,0 +1,13 @@
+
+<ul>
+<% if current_user %>
+	<li>Name: <%= current_user.name %> </li>
+	<li>Happiness: <%= current_user.happiness %> </li>
+	<li>Free Time: <%= current_user.free_time %> </li>	
+
+
+</ul>
+<% else %>
+	You don't have access to view this page
+<% end %>
+

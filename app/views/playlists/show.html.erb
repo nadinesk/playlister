@@ -1,0 +1,29 @@
+
+<h1>Your Current Playlist</h1>
+
+<% if notice %>
+  <p><%= notice %></p>
+<% end %>
+
+
+<% if @message %>
+  <div class="center alert">
+    <p><%= @message %></p>
+  </div>
+<% end %>
+
+<% @playlist.showlines.each do |showline| %>
+  <p><%= link_to showline.tvshow.title, tvshow_path(showline.tvshow) %> | 
+  	$<%= showline.tvshow.price.to_f/100 %> | Suspense Level: <%= showline.tvshow.suspense_level %> | 
+  	 Time Commitment: <%= showline.tvshow.time_commitment %> | 
+  	
+<% end %>
+
+<p>Playlist Summary: <p>
+	<p><strong>Total Price: $<%= @playlist.total.to_f/100 %></strong> </p>
+	<p><strong>Total Time: <%= @playlist.total_time %></strong> </p>
+	<p><strong>Total Suspense: <%= @playlist.total_suspense %></strong> </p>
+<% if @playlist.status == 'not submitted' %>
+  <%= button_to 'Submit', submit_path %>
+<% end %>
+

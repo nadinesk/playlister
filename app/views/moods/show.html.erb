@@ -1,0 +1,17 @@
+<h1><%= @mood.title %></h1>
+
+<ul>
+  <% @tvshows.each do |tvshow| %>
+    <li>
+      <%= link_to tvshow.title, tvshow_path(tvshow) %> - $<%= tvshow.price.to_f/100  %>
+    </li>
+    <% if user_signed_in? %>    
+      <%= form_tag "/showlines/#{tvshow.id}" do %>
+        <%= submit_tag "Add to Playlist" %>
+      <% end %>
+    <% end %>
+  <% end %>
+  
+</ul>
+
+

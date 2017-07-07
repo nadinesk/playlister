@@ -5,12 +5,15 @@ Rails.application.routes.draw do
 
   resources :tvshows, only: [:show, :index]
   resources :moods, only: [:show, :index]
-  resources :users, only: [:show]
+  resources :users, only: [:show, :index]
   resources :playlists
   resources :showlines, only: [:create]
   resources :orders, only: [:show]
 
   post 'playlists/:id/submit', to: 'playlists#submit', as: 'submit'
+  
+  
 
   get '/users/sign_out', to: 'store#index'
 end
+

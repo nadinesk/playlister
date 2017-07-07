@@ -1,0 +1,13 @@
+<% if user_signed_in? %>
+	<h2>User </h2>
+	<% @users.each do |user| %>
+	  <p><%= link_to user.name, user_path(user) %> | 
+	  	Happiness <%= user.happiness %> | 
+	  	Free Time: <%= user.free_time %> | 
+	  
+	  </p>  
+	<% end %>
+<% else %> 
+	You don't have access to view this page. 
+	
+<% end %> 

@@ -1,0 +1,11 @@
+<% tvshows.each do |tvshow| %>
+  <p>
+    <%= tvshow.title %> | 
+    $<%= tvshow.price.to_f/100 %> |
+    time: <%= tvshow.time_commitment %> |
+    suspense: <%= tvshow.suspense_level %> |
+    <% if user_signed_in? %>
+      <%= button_to 'Add to Playlist', showlines_path(tvshow_id: tvshow) %>
+    <% end %>
+  </p>
+<% end %>
