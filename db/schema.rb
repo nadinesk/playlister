@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707105241) do
+ActiveRecord::Schema.define(version: 20170707125004) do
 
   create_table "moods", force: :cascade do |t|
     t.string   "title"
@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(version: 20170707105241) do
     t.string   "last_sign_in_ip"
     t.integer  "current_playlist_id"
     t.string   "name"
+    t.integer  "free_time"
+    t.integer  "happiness"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

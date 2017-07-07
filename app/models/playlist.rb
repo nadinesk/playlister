@@ -12,9 +12,12 @@ class Playlist < ActiveRecord::Base
   belongs_to :user
 
   def add_tvshow(tvshow_id)
-    showline = self.showlines.find_by(tvshow_id: tvshow_id)
+
+    @showline = self.showlines.find_by(tvshow_id: tvshow_id)
+
     enough_time, enough_emotional_capital = meet_requirements
-    if showline
+ 
+    if showline binding.pry
         "You have already added this tv show."
     else
         if enough_time && enough_emotional_capital
@@ -36,6 +39,22 @@ class Playlist < ActiveRecord::Base
     total = 0
     self.showlines.each do |showline|
       total += showline.tvshow.price
+    end
+    return total
+  end
+
+  def total_suspense
+    total = 0
+    self.showlines.each do |showline|
+      total += showline.tvshow.suspense_level
+    end
+    return total
+  end
+
+  def total_time
+    total = 0
+    self.showlines.each do |showline|
+      total += showline.tvshow.time_commitment
     end
     return total
   end
@@ -63,15 +82,13 @@ class Playlist < ActiveRecord::Base
   end
 
   def meet_requirements
+    
     enough_time, enough_emotional_capital = false
-    showlines.each do |showline|
-      total_time += showline.tvshow.time_commitment
-      total_stress += showline.tvshow.suspense_level
-    end
+    binding.pry
     if user.free_time >= total_time
       enough_time = true
     end
-    if user.happiness >= tv_show.suspense_level
+    if user.happiness >= total_suspense
       enough_emotional_capital = true
     end
     return [enough_time, enough_emotional_capital]

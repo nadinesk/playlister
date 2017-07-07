@@ -23,7 +23,7 @@ FactoryGirl.define do
   	
     	name 'nadine'
     	password 'super_secret'
-    	email 'nadinekha@test.blah'
+    	email 'nadinekhat@test.blah'
     
   end
 end
