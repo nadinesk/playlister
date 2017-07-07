@@ -1,9 +1,7 @@
-<nav class="">
     <ul>
-        <li> <%= link_to "Playlister Home", store_path %> </li>
-        <% if current_user && current_user.current_playlist %>
-          <li> <%= link_to "Playlist", playlist_path(current_user.current_playlist) %></li>
-        <% end %>
-        <%= render partial: 'layouts/sign_in' %>
+  		 <li> <%= link_to "Playlister Home", store_path %> </li>
+       	<% if current_user && current_user.current_playlist %>
+       		<li> <%= link_to "Cart", cart_path(current_user.current_playlist) %> </li>
+       	<% end %>
+        <%= render 'layouts/nav_links_for_auth' %>
     </ul>
-</nav>
