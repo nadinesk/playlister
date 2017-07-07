@@ -16,13 +16,13 @@ class Playlist < ActiveRecord::Base
     @showline = self.showlines.find_by(tvshow_id: tvshow_id)
 
     enough_time, enough_emotional_capital = meet_requirements
- 
-    if showline binding.pry
+    binding.pry
+    if @showline
         "You have already added this tv show."
     else
         if enough_time && enough_emotional_capital
-          showline=self.showline.build(tvshow_id: tvshow_id)
-          showline
+          @showline=self.showlines.build(tvshow_id: tvshow_id)
+          @showline
         elsif enough_time && !enough_emotional_capital
           "Sorry. " + emotional_issue
         elsif enough_emotional_capital && !enough_time
@@ -37,26 +37,40 @@ class Playlist < ActiveRecord::Base
 #total for all shows...
   def total
     total = 0
-    self.showlines.each do |showline|
-      total += showline.tvshow.price
+    if self.showlines      
+      self.showlines.each do |showline|
+        total += showline.tvshow.price
+      end
     end
+    
     return total
   end
 
   def total_suspense
-    total = 0
-    self.showlines.each do |showline|
-      total += showline.tvshow.suspense_level
+    s_total = 0
+    if self.showlines
+      self.showlines.each do |showline|
+        s_total += showline.tvshow.suspense_level
+      end
     end
-    return total
+    binding.pry
+    return s_total
+
+    
   end
 
   def total_time
-    total = 0
-    self.showlines.each do |showline|
-      total += showline.tvshow.time_commitment
+    time_total = 0
+    if self.showlines
+
+      self.showlines.each do |showline|
+        binding.pry
+        time_total += showline.tvshow.time_commitment
+      end
     end
-    return total
+    
+    return time_total
+
   end
 
   def checkout
@@ -84,7 +98,7 @@ class Playlist < ActiveRecord::Base
   def meet_requirements
     
     enough_time, enough_emotional_capital = false
-    binding.pry
+  
     if user.free_time >= total_time
       enough_time = true
     end
@@ -92,6 +106,7 @@ class Playlist < ActiveRecord::Base
       enough_emotional_capital = true
     end
     return [enough_time, enough_emotional_capital]
+
   end
 
   def time_issue
