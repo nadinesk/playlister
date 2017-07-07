@@ -11,6 +11,7 @@ class Playlist < ActiveRecord::Base
   has_many :tvshows, through: :showlines
   belongs_to :user
 
+
   
   def save_show(tvshow_id)
     showline=self.showlines.build(tvshow_id: tvshow_id)
@@ -54,10 +55,8 @@ class Playlist < ActiveRecord::Base
 
   def total_suspense
     s_total = 0
-    if self.user.current_playlist.showlines
-      
-      self.user.current_playlist.showlines.each do |showline|
-
+    if self.showlines      
+      self.showlines.each do |showline|
         s_total += showline.tvshow.suspense_level
       end
     end
@@ -68,34 +67,34 @@ class Playlist < ActiveRecord::Base
   end
 
   def total_time
+    
     time_total = 0
-    if self.user.current_playlist.showlines    
-      self.user.current_playlist.showlines.each do |showline|     
-      
+    if self.showlines      
+      self.showlines.each do |showline|
         time_total += showline.tvshow.time_commitment
       end
     end
     
     return time_total
 
-  end
 
-  def submit_list
-    self.status = "submitted"
-    change_attributes
+  end
+  
+
+  def submit_list  
+    binding.pry
+    user.remove_cart
   end
 
   def change_attributes
-
-   
-    if self.status = "submitted"
+    update(status: 'submitted')
       new_happiness = self.user.happiness - total_suspense
       new_free_time = self.user.free_time - total_time
       self.user.update(
         :happiness => new_happiness,
         :free_time => new_free_time
       )
-    end
+    
   end
 
   def meet_requirements

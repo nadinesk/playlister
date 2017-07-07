@@ -14,7 +14,10 @@ class User < ActiveRecord::Base
   end
 
   def remove_cart
+    binding.pry
     self.current_playlist_id = nil
     save
   end
 end
+
+
