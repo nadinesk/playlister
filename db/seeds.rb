@@ -1,4 +1,6 @@
 
+
+
 10.times do
   Tvshow.create(
     
@@ -10,7 +12,7 @@
   Mood.create(title: Faker::Hipster.words(1)[0])
 end
 
-counter = 171
+counter = 0
 Tvshow.all.each do |tvshow|
   tvshow.mood_id = counter
   tvshow.save
