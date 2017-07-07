@@ -8,8 +8,9 @@ class PlaylistsController < ApplicationController
   end
 
   def submit
-    playlist = Playlist.find params[:id]
-    playlist.submit
+    binding.pry
+    playlist = Playlist.find(params[:id])
+    playlist.submit_list
     redirect_to playlist_path(playlist)
   end
 end

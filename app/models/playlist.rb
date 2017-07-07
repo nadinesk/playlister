@@ -71,7 +71,7 @@ class Playlist < ActiveRecord::Base
     time_total = 0
     if self.user.current_playlist.showlines    
       self.user.current_playlist.showlines.each do |showline|     
-      binding.pry   
+      
         time_total += showline.tvshow.time_commitment
       end
     end
@@ -80,18 +80,14 @@ class Playlist < ActiveRecord::Base
 
   end
 
-  def checkout
+  def submit_list
     self.status = "submitted"
     change_attributes
   end
 
   def change_attributes
 
-    showlines.each do |showline|
-      total_time += showline.tvshow.time_commitment
-      total_stress += showline.tvshow.suspense_level
-    end
-
+   
     if self.status = "submitted"
       new_happiness = self.user.happiness - total_suspense
       new_free_time = self.user.free_time - total_time
@@ -113,7 +109,7 @@ class Playlist < ActiveRecord::Base
       enough_emotional_capital = true
     end
 
-    binding.pry
+    
     return [enough_time, enough_emotional_capital]
 
   end
