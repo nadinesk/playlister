@@ -11,6 +11,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'spring',        group: :development
 
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -38,6 +39,7 @@ group :test, :development do
   gem "pry"
   gem "guard-rspec", require: false
   gem "thin"
+
 end
 
 group :production do
@@ -47,5 +49,5 @@ end
 
 gem "bootstrap-sass", "~> 3.1.1"
 #gem "airbrake"
-gem "faker"
+gem "faker", '~> 1.7.3', group: :development
 gem "friendly_id"

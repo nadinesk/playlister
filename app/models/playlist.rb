@@ -18,7 +18,7 @@ class Playlist < ActiveRecord::Base
         "You have already added this tv show."
     else
         if enough_time && enough_emotional_capital
-          showline=self.showline.build(tvshow_id: tvshow_id
+          showline=self.showline.build(tvshow_id: tvshow_id)
           showline
         elsif enough_time && !enough_emotional_capital
           "Sorry. " + emotional_issue
@@ -85,6 +85,7 @@ class Playlist < ActiveRecord::Base
     "Watching #{self.tvshow.title} will stress you out too much."
   end
 
+end
 
 
 ###############

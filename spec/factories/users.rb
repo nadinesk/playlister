@@ -20,8 +20,10 @@
 
 FactoryGirl.define do
   factory :user do
-    name 'avi'
-    password 'super_secret'
-    email 'avi.turkewitz@test.cats'
+  	
+    	name 'nadine'
+    	password 'super_secret'
+    	email 'nadinekha@test.blah'
+    
   end
 end

@@ -1,1 +1,9 @@
 
+Store Page
+
+<% if notice %>
+  <p><%= notice %></p>
+<% end %>
+
+<%= render partial: 'moods/moods_index', locals: {moods: @moods} %>
+<%= render partial: 'tvshows/index', locals: {tvshows: @tvshows} %>
