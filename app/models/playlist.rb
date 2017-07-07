@@ -16,7 +16,7 @@ class Playlist < ActiveRecord::Base
     @showline = self.showlines.find_by(tvshow_id: tvshow_id)
 
     enough_time, enough_emotional_capital = meet_requirements
-    binding.pry
+    
     if @showline
         "You have already added this tv show."
     else

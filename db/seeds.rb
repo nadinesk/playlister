@@ -3,10 +3,9 @@
   Tvshow.create(
     
     title: Faker::Ancient.hero,
-    
     price: Faker::Number.number(4),
-    time_commitment: Faker::Number.number(2),
-    suspense_level: Faker::Number.number(2)
+    time_commitment: Faker::Number.number(4),
+    suspense_level: Faker::Number.number(4)
   )
   Mood.create(title: Faker::Hipster.words(1)[0])
 end

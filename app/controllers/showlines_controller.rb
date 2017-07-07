@@ -4,7 +4,7 @@ class ShowlinesController < ApplicationController
     current_user.create_current_playlist unless current_user.current_playlist
     showline = current_user.current_playlist.add_tvshow(params[:tvshow_id])
     if showline.save
-      redirect_to cart_path(current_user.current_playlist), {notice: 'Item added to cart!'}
+      redirect_to playlist_path(current_user.current_playlist), {notice: 'Item added to cart!'}
     else
       @message = current_user.current_playlist.add_tvshow
       redirect_to store_path, {notice: @message}
