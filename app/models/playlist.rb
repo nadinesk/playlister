@@ -81,8 +81,7 @@ class Playlist < ActiveRecord::Base
   end
   
 
-  def submit_list  
-    binding.pry
+  def submit_list      
     user.remove_cart
   end
 
