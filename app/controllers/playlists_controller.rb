@@ -11,13 +11,8 @@ class PlaylistsController < ApplicationController
 
 
   def create
-       
-    #if !current_user.current_playlist
 
-     # new_playlist = playlists.create(playlist_params)
-      #self.current_playlist_id = new_playlist.id
-      #save      
-   #end
+
     current_user.create_current_playlist unless current_user.current_playlist
     tvshow = Tvshow.find_or_create_by(:title => params[:playlist][:tvshow][:title])
     tvshow.suspense_level = params[:playlist][:tvshow][:suspense_level]
@@ -43,6 +38,7 @@ class PlaylistsController < ApplicationController
   
   def show
     @playlist = Playlist.find(params[:id])
+    binding.pry
   end
 
   def submit

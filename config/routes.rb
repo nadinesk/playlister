@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations'}
   root 'store#index', as: 'store'
 
-  resources :tvshows, only: [:show, :index]
+  resources :tvshows
   resources :moods, only: [:show, :index]
   resources :users, only: [:show, :index]
   resources :playlists

@@ -12,6 +12,7 @@ class Playlist < ActiveRecord::Base
   belongs_to :user
 
   def tvshows_attributes=(tvshow)   
+
     self.tvshow = Tvshow.find_or_create_by(title: tvshow.title)
     self.tvshow.update(tvshow)
   end
@@ -29,7 +30,7 @@ class Playlist < ActiveRecord::Base
     
     
     enough_time, enough_emotional_capital = meet_requirements
-    binding.pry
+
     if showline
         "You have already added this tv show."
     else
@@ -105,7 +106,7 @@ class Playlist < ActiveRecord::Base
   def meet_requirements
     
     enough_time, enough_emotional_capital = false
-  
+
     if user.free_time >= total_time
       enough_time = true
     end

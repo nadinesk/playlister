@@ -6,6 +6,10 @@
     suspense: <%= tvshow.suspense_level %> |
     <% if user_signed_in? %>
       <%= button_to 'Add to Playlist', showlines_path(tvshow_id: tvshow) %>
+      <%= button_to 'Delete', tvshow, :method => :delete %>
     <% end %>
   </p>
 <% end %>
+
+
+  

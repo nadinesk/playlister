@@ -2,8 +2,9 @@ class ShowlinesController < ApplicationController
 
   def create
     current_user.create_current_playlist unless current_user.current_playlist
-    showline_message = current_user.current_playlist.add_tvshow(params[:tvshow_id])
     
+    showline_message = current_user.current_playlist.add_tvshow(params[:tvshow_id])
+ 
     if showline_message == ("successfully added tv show")
       showline = current_user.current_playlist.save_show(params[:tvshow_id])
       if showline.save
