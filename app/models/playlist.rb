@@ -11,7 +11,10 @@ class Playlist < ActiveRecord::Base
   has_many :tvshows, through: :showlines
   belongs_to :user
 
-
+  def tvshows_attributes=(tvshow)   
+    self.tvshow = Tvshow.find_or_create_by(title: tvshow.title)
+    self.tvshow.update(tvshow)
+  end
   
   def save_show(tvshow_id)
     showline=self.showlines.build(tvshow_id: tvshow_id)
@@ -21,10 +24,12 @@ class Playlist < ActiveRecord::Base
 
   def add_tvshow(tvshow_id)
 
+  
     showline = self.showlines.find_by(tvshow_id: tvshow_id)
-
-    enough_time, enough_emotional_capital = meet_requirements
     
+    
+    enough_time, enough_emotional_capital = meet_requirements
+    binding.pry
     if showline
         "You have already added this tv show."
     else
@@ -71,6 +76,7 @@ class Playlist < ActiveRecord::Base
     time_total = 0
     if self.showlines      
       self.showlines.each do |showline|
+        binding.pry
         time_total += showline.tvshow.time_commitment
       end
     end
