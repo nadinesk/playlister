@@ -71,7 +71,6 @@ class Playlist < ActiveRecord::Base
     time_total = 0
     if self.showlines      
       self.showlines.each do |showline|
-        binding.pry
         time_total += showline.tvshow.time_commitment
       end
     end

@@ -1,5 +1,6 @@
 <h2>Playlist Created <%=playlist.created_at.strftime("%c")%></h2>
 <% playlist.showlines.each do |showline| %>
+	
   <p><%= link_to showline.tvshow.title, tvshow_path(showline.tvshow) %> | <%= number_to_currency(to_currency(showline.tvshow.price)) %> | Suspense: <%= showline.tvshow.suspense_level %> | 
   Time Commitment: <%= showline.tvshow.time_commitment %>
   </p>  
