@@ -4,5 +4,4 @@
        		<li> <%= link_to "Playlist", playlist_path(current_user.current_playlist) %> </li>
        	<% end %>
         <%= render 'layouts/nav_links_for_auth' %>
-        <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
     </ul>
