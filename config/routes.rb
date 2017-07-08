@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'store#index', as: 'store'
 
   resources :tvshows
-  resources :moods, only: [:show, :index]
+  resources :moods
   resources :users, only: [:show, :index]
   resources :playlists
   resources :showlines, only: [:create]

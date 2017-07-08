@@ -54,3 +54,9 @@ end
 
 
 
+
+New Mood form
+New nested Tv show form
+mood_show table with model
+remove 
+

@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707125004) do
+ActiveRecord::Schema.define(version: 20170708125858) do
+
+  create_table "mood_shows", force: :cascade do |t|
+    t.integer  "mood_id"
+    t.integer  "tvshow_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "moods", force: :cascade do |t|
     t.string   "title"
@@ -38,7 +45,6 @@ ActiveRecord::Schema.define(version: 20170707125004) do
     t.integer  "suspense_level"
     t.integer  "time_commitment"
     t.integer  "price"
-    t.integer  "mood_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end

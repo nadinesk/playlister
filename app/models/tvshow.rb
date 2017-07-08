@@ -9,8 +9,12 @@
 #end
 
 class Tvshow < ActiveRecord::Base
-  belongs_to :mood
+  has_many :mood_shows
+  has_many :moods, through: :mood_shows
   has_many :showlines
+
+  
+
 
   # maybe add some stuff about decreasing awakeness, happiness, etc. has_secure_password
 
