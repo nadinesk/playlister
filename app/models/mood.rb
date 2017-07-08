@@ -11,6 +11,14 @@ class Mood < ActiveRecord::Base
 
   accepts_nested_attributes_for :tvshows
 
+  def tvshows_attributes=(tvshow_attributes)
+    tvshow_attributes.values.each do |tvshow_attribute|
+      tvshow = Tvshow.find_or_create_by(tvshow_attribute)
+      self.tvshows << tvshow
+      binding.pry
+    end
+  end
+
    # def tvshows_attributes=(tvshow_attributes)
     #	binding.pry
      #tvshow_attributes.values.each do |tvshow_attribute|
