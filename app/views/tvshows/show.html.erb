@@ -3,7 +3,7 @@
 <p>Suspense Level: <%= @tvshow.suspense_level %></p>
 <h2>Length: <%= @tvshow.time_commitment %> hours </p>
 	<% if !@tvshow.moods.empty? %>
-		<% binding.pry %> 
+		
 		Mood: <% @tvshow.moods.each do |m| %>
 		<%= link_to "#{m.title}", mood_path(m) %> 
 	<% end %> 
