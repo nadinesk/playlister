@@ -11,6 +11,8 @@ class Playlist < ActiveRecord::Base
   has_many :tvshows, through: :showlines
   belongs_to :user
 
+  
+
   def tvshows_attributes=(tvshow)   
 
     self.tvshow = Tvshow.find_or_create_by(title: tvshow.title)
@@ -53,7 +55,7 @@ class Playlist < ActiveRecord::Base
     if self.showlines      
       self.showlines.each do |showline|
         total += showline.tvshow.price
-      end
+      end    
     end
     
     return total
@@ -64,7 +66,7 @@ class Playlist < ActiveRecord::Base
     if self.showlines      
       self.showlines.each do |showline|
         s_total += showline.tvshow.suspense_level
-      end
+      end    
     end
     
     return s_total
@@ -76,10 +78,10 @@ class Playlist < ActiveRecord::Base
     
     time_total = 0
     if self.showlines      
-      self.showlines.each do |showline|
-        binding.pry
+      self.showlines.each do |showline|        
         time_total += showline.tvshow.time_commitment
       end
+    
     end
     
     return time_total

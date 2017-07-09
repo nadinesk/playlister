@@ -14,7 +14,11 @@ class MoodsController < ApplicationController
   	def create  		 
   		 @mood = Mood.create(mood_params)	
   		 
-  		 redirect_to mood_path(@mood)
+       if @mood.save
+        redirect_to mood_path(@mood)
+  		 else
+        render :new
+       end
   	end
 
 

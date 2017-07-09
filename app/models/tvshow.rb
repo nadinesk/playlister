@@ -13,6 +13,8 @@ class Tvshow < ActiveRecord::Base
   has_many :moods, through: :mood_shows
   has_many :showlines
 
+  validates :title, :suspense_level, :time_commitment, :price, presence: true
+
   
 
 

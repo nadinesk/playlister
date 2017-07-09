@@ -11,6 +11,8 @@ class Mood < ActiveRecord::Base
 
   accepts_nested_attributes_for :tvshows
 
+  validates :title, presence: true
+
   def tvshows_attributes=(tvshow_attributes)
     tvshow_attributes.values.each do |tvshow_attribute|
       tvshow = Tvshow.find_or_create_by(tvshow_attribute)

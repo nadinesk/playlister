@@ -1,14 +1,31 @@
+
+<% if @mood.errors.any? %>
+  <div id="error_explanation">
+    <h2>
+      <%= pluralize(@mood.errors.count, "error") %>
+      prohibited this mood from being saved:
+    </h2>
+ 
+    <ul>
+    <% @mood.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 Mood
 <%= form_for @mood do |f| %>
+
     <%= f.label :title %>
         <%= f.text_field :title %>
   <ul>
     <%= f.fields_for :tvshows do |tvshows_form| %>
 TV show
-      <li>
+      
         <%= tvshows_form.label :title %>
         <%= tvshows_form.text_field :title %>
-    </li>
+    
     <li>
         <%= tvshows_form.label :suspense_level %>
         <%= tvshows_form.number_field :suspense_level %>
