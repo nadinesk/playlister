@@ -1,0 +1,19 @@
+<%= form_for(@tvshow) do |f| %>
+	<% binding.pry %>
+  <div class="field"> <%= f.label :title %><br>
+  <%= f.text_field :title %></div>
+
+  <div class="field"><%= f.label :suspense_level %><br>
+  <%= f.number_field :suspense_level %></div>
+
+  <div class="field"><%= f.label :time_commitment %><br>
+  <%= f.number_field :time_commitment %></div>
+
+  <div class="field"><%= f.label :price %><br>
+  <%= f.number_field :price %></div>
+
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

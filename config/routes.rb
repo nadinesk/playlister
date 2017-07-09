@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
 
   post 'playlists/:id/submit', to: 'playlists#submit', as: 'submit'
+  post 'tvshows/:id', to: 'tvshows#edit', as: 'edit'
   
   
 

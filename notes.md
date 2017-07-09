@@ -67,5 +67,22 @@ Add Users index page link - header
 Format all pages
 
 
+    <ul class="nav navbar-nav">
+
+       <li> <%= link_to "PLAYLISTER HOME", store_path %> </li>
+       
+        <% if current_user && current_user.current_playlist %>
+          <li> <%= link_to "Current Playlist", playlist_path(current_user.current_playlist) %> </li>
+        <% elsif current_user %>
+          <li> <%= link_to "All of Your Playlists", user_playlists_path(current_user) %> </li>
+        <li> <%= link_to "Your Profile", user_path(current_user) %> </li>
+      <% else %>
+        <li><%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %></li>
+        <% end %>
+        <%= render 'layouts/nav_links_for_auth' %>
+        
+    </ul>
+
+
 
 

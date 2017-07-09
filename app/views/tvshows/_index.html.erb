@@ -1,5 +1,6 @@
 <% tvshows.each do |tvshow| %>
   <p>
+    <%= link_to tvshow.title, tvshow_path(tvshow) %>
     <%= tvshow.title %> | 
     $<%= tvshow.price.to_f/100 %> |
     time: <%= tvshow.time_commitment %> |
@@ -7,9 +8,10 @@
     <% if user_signed_in? %>
       <%= button_to 'Add to Playlist', showlines_path(tvshow_id: tvshow) %>
       <%= button_to 'Delete', tvshow, :method => :delete %>
+      <%= button_to 'Edit', tvshow, :method => :edit  %>
     <% end %>
   </p>
 <% end %>
 
 
-  
+ 
