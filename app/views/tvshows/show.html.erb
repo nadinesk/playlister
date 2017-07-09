@@ -1,2 +1,7 @@
-<h1><%= @item.title %></h1>
-<h2>$ <%= @item.price.to_f/100 %></h2>
+ <h1>Title: <%= @tvshow.title %></h1>
+<h2>Price: $ <%= @tvshow.price.to_f/100 %></h2>
+<h2>Suspense Level: <%= @tvshow.suspense_level %></h2>
+<h2>Length: <%= @tvshow.time_commitment %></h2>
+Mood: <% @tvshow.moods.each do |m| %>
+	<%= link_to "#{m.title}", mood_path(m) %> 
+<% end %>
