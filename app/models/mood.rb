@@ -17,7 +17,7 @@ class Mood < ActiveRecord::Base
     tvshow_attributes.values.each do |tvshow_attribute|
       tvshow = Tvshow.find_or_create_by(tvshow_attribute)
       self.tvshows << tvshow
-      binding.pry
+      
     end
   end
 

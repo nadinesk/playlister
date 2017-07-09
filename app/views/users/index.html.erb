@@ -2,8 +2,8 @@
 	<h2>User </h2>
 	<% @users.each do |user| %>
 	  <p><%= link_to user.name, user_path(user) %> | 
-	  	Happiness <%= user.happiness %> | 
-	  	Free Time: <%= user.free_time %> | 
+	  	Happiness Level: <%= user.happiness %> | 
+	  	Free Time: <%= user.free_time %> hours | 
 	  
 	  </p>  
 	<% end %>

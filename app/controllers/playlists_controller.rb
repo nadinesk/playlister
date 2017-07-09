@@ -36,7 +36,7 @@ class PlaylistsController < ApplicationController
   
   def show
     @playlist = Playlist.find(params[:id])
-    binding.pry
+    
   end
 
   def submit

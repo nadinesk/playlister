@@ -1,5 +1,5 @@
 
-<h1>Your Current Playlist</h1>
+<h1>Your Playlist</h1>
 
 <% if notice %>
   <p><%= notice %></p>
@@ -13,10 +13,10 @@
 <% end %>
 
 <% @playlist.showlines.each do |showline| %>
-  <% binding.pry %>
+  
   <p><%= link_to showline.tvshow.title, tvshow_path(showline.tvshow) %> | 
   	$<%= showline.tvshow.price.to_f/100 %> | Suspense Level: <%= showline.tvshow.suspense_level %> | 
-  	 Time Commitment: <%= showline.tvshow.time_commitment %> | 
+  	 Time Commitment: <%= showline.tvshow.time_commitment %> hours | 
   	
 <% end %>
 
