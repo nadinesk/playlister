@@ -60,3 +60,12 @@ New nested Tv show form
 mood_show table with model
 remove 
 
+
+Add Playlists index page link - header
+Add Users index page link - header
+
+Format all pages
+
+
+
+
