@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   resources :showlines, only: [:create]
   resources :orders, only: [:show]
 
+
+  resources :users do
+    resources :playlists
+  end
+
   post 'playlists/:id/submit', to: 'playlists#submit', as: 'submit'
   
   
