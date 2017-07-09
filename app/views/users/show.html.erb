@@ -1,9 +1,13 @@
 
 <ul>
-<% if current_user %>
+	<% binding.pry %> 
+<% if current_user.id == params[:id].to_i %>
 	<li>Name: <%= current_user.name %> </li>
 	<li>Happiness: <%= current_user.happiness %> </li>
 	<li>Free Time: <%= current_user.free_time %> </li>	
+<% current_user.playlists.each do |p| %>
+	<%= link_to "#{p.created_at}",  user_playlist_path(current_user, p) %>
+<% end %>
 
 
 </ul>
