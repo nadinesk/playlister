@@ -4,6 +4,7 @@ Rails.application.routes.draw do
                                        :omniauth_callbacks => "omniauth_callbacks" }
   root 'store#index', as: 'store'
 
+
   resources :tvshows
   resources :moods
   resources :users, only: [:show, :index]
@@ -20,12 +21,17 @@ Rails.application.routes.draw do
     resources :tvshows
   end
 
+  namespace :admin do
+    resources :stats, only: [:index]
+  end
 
   post 'playlists/:id/submit', to: 'playlists#submit', as: 'submit'
   post 'tvshows/:id', to: 'tvshows#edit', as: 'edit'
-  
-  
 
   get '/users/sign_out', to: 'store#index'
+
+
+
+
 end
 
