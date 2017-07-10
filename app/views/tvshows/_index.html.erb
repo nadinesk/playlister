@@ -1,5 +1,7 @@
+<br /> 
 <div>
-<% tvshows.each do |tvshow| %>
+ <h3> <%= @mood.title %> tv shows </h3> 
+<% @tvshows.each do |tvshow| %>
   <p>
     <%= link_to tvshow.title, tvshow_path(tvshow) %>
      || 

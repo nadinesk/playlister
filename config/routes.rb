@@ -16,6 +16,11 @@ Rails.application.routes.draw do
     resources :playlists
   end
 
+  resources :moods do
+    resources :tvshows
+  end
+
+
   post 'playlists/:id/submit', to: 'playlists#submit', as: 'submit'
   post 'tvshows/:id', to: 'tvshows#edit', as: 'edit'
   

@@ -1,0 +1,28 @@
+<br />
+
+<h3> New TV Show for Mood <%= @mood.title %>  </h3>
+<%= form_for(@tvshow) do |f| %>
+
+  <div class="field"> <%= f.label :title %><br>
+  <%= f.text_field :title %></div>
+
+  <div class="field"><%= f.label :suspense_level %><br>
+  <%= f.number_field :suspense_level %></div>
+
+  <div class="field"><%= f.label :time_commitment %><br>
+  <%= f.number_field :time_commitment %></div>
+
+  <div class="field"><%= f.label :price %><br>
+  <%= f.number_field :price %></div>
+
+
+  <div class="field">
+    <%= f.hidden_field :mood_ids, :value => @mood.id %>
+  </div>
+
+  <br>
+  
+  <div class="actions"><%= f.submit 'Submit', :class => 'btn btn-primary' %></div>
+
+<% end %>
+</div> 
