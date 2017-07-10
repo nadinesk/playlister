@@ -1,3 +1,6 @@
-To use this app, clone the repository, run `bundle install`, and start up the app with `rails s`. 
+To use this app
+* Clone the repository, run `bundle install`.  
+* Clear the database with `rake db:reset`. 
+* Run the migrations with `rake db:migrate`. 
+* Start up the app locally with `rails s`. 
 
-This app uses the Devise gem; install following the steps [here](https://github.com/plataformatec/devise)
