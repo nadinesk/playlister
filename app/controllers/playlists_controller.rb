@@ -40,6 +40,7 @@ class PlaylistsController < ApplicationController
   end
 
   def submit
+    binding.pry
     
     playlist = Playlist.find(params[:id])
     playlist.change_attributes
@@ -49,9 +50,9 @@ class PlaylistsController < ApplicationController
 
   private 
 
-  #private
-  #def playlist_params
-   # params.require(:playlist).permit(tvshows_attributes: [:id, :title, :suspense_level, :time_commitment])
+  
+  def playlist_params
+   params.require(:playlist).permit(tvshows_attributes: [:id, :title, :suspense_level, :time_commitment])
 
-  #end
+  end
 end

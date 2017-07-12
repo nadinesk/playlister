@@ -31,7 +31,7 @@ class Playlist < ActiveRecord::Base
     showline = self.showlines.find_by(tvshow_id: tvshow_id)
     
     
-    enough_time, enough_emotional_capital = meet_requirements
+    enough_time, enough_emotional_capital = meet_requirements(tvshow_id)
 
     if showline
         "You have already added this tv show."
@@ -61,33 +61,53 @@ class Playlist < ActiveRecord::Base
     return total
   end
 
-  def total_suspense
+  def total_suspense(tvshow_id)
+    tvshow = Tvshow.find_by(id: tvshow_id)
     s_total = 0
     if self.showlines      
       self.showlines.each do |showline|
         s_total += showline.tvshow.suspense_level
       end    
-    end
+    end    
+    s_total += tvshow.suspense_level
+    return s_total
+  end
+
+  def total_suspense_view
+    
+    s_total = 0
+    if self.showlines      
+      self.showlines.each do |showline|
+        s_total += showline.tvshow.suspense_level
+      end    
+    end    
     
     return s_total
-
-    
   end
 
-  def total_time
-    
+  def total_time(tvshow_id)
+
+    tvshow = Tvshow.find_by(id: tvshow_id)
     time_total = 0
-    if self.showlines      
+    if self.showlines       
       self.showlines.each do |showline|        
         time_total += showline.tvshow.time_commitment
-      end
-    
+      end    
     end
-    
-    return time_total
-
-
+    time_total += tvshow.time_commitment         
+    return time_total 
   end
+
+  def total_time_view 
+    time_total = 0
+    if self.showlines       
+      self.showlines.each do |showline|        
+        time_total += showline.tvshow.time_commitment
+      end    
+    end
+    return time_total 
+  end
+
   
 
   def submit_list      
@@ -96,8 +116,8 @@ class Playlist < ActiveRecord::Base
 
   def change_attributes
     update(status: 'submitted')
-      new_happiness = self.user.happiness - total_suspense
-      new_free_time = self.user.free_time - total_time
+      new_happiness = self.user.happiness - total_suspense_view
+      new_free_time = self.user.free_time - total_time_view
       self.user.update(
         :happiness => new_happiness,
         :free_time => new_free_time
@@ -105,14 +125,14 @@ class Playlist < ActiveRecord::Base
     
   end
 
-  def meet_requirements
+  def meet_requirements(tvshow_id)
     
     enough_time, enough_emotional_capital = false
 
-    if user.free_time >= total_time
+    if user.free_time >= total_time(tvshow_id)
       enough_time = true
     end
-    if user.happiness >= total_suspense
+    if user.happiness >= total_suspense(tvshow_id)
       enough_emotional_capital = true
     end
 

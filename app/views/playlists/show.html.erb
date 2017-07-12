@@ -22,8 +22,8 @@
 
 <p>Playlist Summary: <p>
 	<p><strong>Total Price: $<%= @playlist.total.to_f/100 %></strong> </p>
-	<p><strong>Total Time: <%= @playlist.total_time %></strong> </p>
-	<p><strong>Total Suspense: <%= @playlist.total_suspense %></strong> </p>
+	<p><strong>Total Time: <%= @playlist.total_time_view %></strong> </p>
+	<p><strong>Total Suspense: <%= @playlist.total_suspense_view %></strong> </p>
 <% if @playlist.status == 'not submitted' %>
   <%= button_to 'Submit', submit_path %>
 <% end %>
