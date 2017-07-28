@@ -6,9 +6,21 @@ class MoodsController < ApplicationController
 		@mood.tvshows.build
 	end
 
+  def index 
+    @moods = Mood.all
+    
+    
+  end
+
+
   	def show
     	@mood = Mood.find(params[:id])
     	@tvshows = @mood.tvshows
+
+      respond_to do |format|
+        format.html { render :show }
+        format.json { render json: @mood }
+      end
   	end
 
   	def create  		 
