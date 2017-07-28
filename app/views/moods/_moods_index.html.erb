@@ -1,11 +1,9 @@
 
 <div> 
 <h3> Moods </h3>
-<% moods.each do |mood| %>
 
-&nbsp &nbsp &nbsp  <%= link_to mood.title, mood_path(mood) %> &nbsp &nbsp &nbsp || 
-
-<% end %>
+	<ul id="ml">
+  	</ul>
 
 </div> 
 <br/> 
@@ -13,50 +11,19 @@
 <script type="text/javascript" charset="utf-8">
 $(window).load(function() {
  // executes when complete page is fully loaded, including all frames, objects and images
- alert("window is loaded");
+ 	
+ 	$.get("/moods.json", function(data) {
+ 		var moodList = ""; 
+ 		data.forEach(function(mood) {
+ 			moodList += '<li class="js-mood" data-id="' + mood["id"] + '">' + '<a href="moods/' + mood["id"] + '">'  +  mood["title"] + '</a>' + '</li>'; 
+ 			console.log(moodList)
+ 		}); 
+ 		$("#ml").html(moodList);
+ 	})
+
+ 	
 });
 
 
 </script>
 
-$(function() {
-  $(".js-more").on("click", function() {
-    var id = $(this).data("id");
-    $.get("/products/" + id + ".json", function(data) {
-      var product = data;
-      var inventoryText = "<strong>Available</strong>";
-      if(product["inventory"] === 0){
-        inventoryText = "<strong>Sold Out</strong>";
-      }
-      var descriptionText = "<p>" + product["description"] + "</p><p>" + inventoryText + "</p>";
-      $("#product-" + id).html(descriptionText);
-      var orders = product["orders"];
-      var orderList = "";
-      orders.forEach(function(order) {
-        orderList += '<li class="js-order" data-id="' + order["id"] + '">' + order["id"] + ' - ' + order["created_at"] + '</li>';
-      });
-      $("#product-" + id + "-orders").html(orderList);
-    });
-  });
-});
-
-$(function() {
-  $(".js-more").on("click", function() {
-    var id = $(this).data("id");
-    $.get("/products/" + id + ".json", function(data) {
-      var product = data;
-      var inventoryText = "<strong>Available</strong>";
-      if(product["inventory"] === 0){
-        inventoryText = "<strong>Sold Out</strong>";
-      }
-      var descriptionText = "<p>" + product["description"] + "</p><p>" + inventoryText + "</p>";
-      $("#product-" + id).html(descriptionText);
-      var orders = product["orders"];
-      var orderList = "";
-      orders.forEach(function(order) {
-        orderList += '<li class="js-order" data-id="' + order["id"] + '">' + order["id"] + ' - ' + order["created_at"] + '</li>';
-      });
-      $("#product-" + id + "-orders").html(orderList);
-    });
-  });
-});

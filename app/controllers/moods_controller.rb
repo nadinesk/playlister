@@ -8,6 +8,10 @@ class MoodsController < ApplicationController
 
   def index 
     @moods = Mood.all
+    respond_to do |format|
+        format.html { render :index }
+        format.json {  render json: @moods, each_serializer: MoodSerializer }
+      end
     
     
   end
