@@ -13,7 +13,6 @@ class MoodsController < ApplicationController
         format.json {  render json: @moods, each_serializer: MoodSerializer }
       end
     
-    
   end
 
 

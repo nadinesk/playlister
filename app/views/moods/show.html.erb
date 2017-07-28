@@ -1,6 +1,7 @@
-<h1><%= @mood.title %></h1>
+<a href="#" class="js-next" data-id="<%=@mood.id%>">Next Product</a>
+<h1 class="moodTitle"><%= @mood.title %></h1>
 
-<ul>
+<ul class="moodTvshow">
   <% @tvshows.each do |tvshow| %>
     <li>
       <%= link_to tvshow.title, tvshow_path(tvshow) %> - $<%= tvshow.price.to_f/100  %>
@@ -15,4 +16,24 @@
   
 </ul>
 
-  
+<script type="text/javascript" charset="utf-8">
+$(function () {
+  $(".js-next").on("click", function() {
+    var nextId = parseInt($(".js-next").attr("data-id")) + 1;
+    $.get("/moods/" + nextId + ".json", function(data) {
+      var mood = data;
+      var tvshows = mood["tvshows"]; 
+      var tvshowList = ""; 
+      tvshows.forEach(function(tvshow) {
+        tvshowList += '<li class="js-order" data-id="' + tvshow["id"] + '">' + ' - ' + tvshow["title"] + '</li>'
+      })
+      $(".moodTitle").text(mood["title"]);
+        $(".moodTvshow").html(tvshowList);
+      $(".js-next").attr("data-id", mood["id"]);
+    })
+    .fail(function() {
+      alert("You have reached the end of the Moods list"); 
+    })
+  });
+});
+</script>
