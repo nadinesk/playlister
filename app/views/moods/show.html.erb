@@ -10,9 +10,12 @@
       <%= form_tag showlines_path(tvshow_id: tvshow) do %>
          <br /> <%= submit_tag "Add to Playlist" %> <br />
       <% end %>
-       <br /> <%= link_to "Add a new TV show to this mood", new_mood_tvshow_path(@mood) %>
+       
     <% end %>
   <% end %>
+<% if user_signed_in? %>    
+    <br /> <%= link_to "Add a new TV show to this mood", new_mood_tvshow_path(@mood) %>
+    <% end %>
   
 </ul>
 

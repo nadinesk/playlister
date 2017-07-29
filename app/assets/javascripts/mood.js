@@ -20,11 +20,18 @@ Mood.prototype.showMoods = function() {
 		return moodList
 }
 
-Tvshow.prototype.showTvshows = function() {
-		
+Mood.prototype.showTvshows = function() {
+		var moodId = this.id
 		var tvshowList = ''; 
-		tvshowList += '<li class="js-order" data-id="' + this.id + '">' + ' - ' + this.title+ '</li>'
-		return tvshowList
+		
+		$.each(this.tvshows, function(index, value) {			
+			tvshowList += '<li class="js-order" data-id="' + this.id + '">' + '<a href="' + moodId+ '/tvshows/' + this.id + '">'  + this.title+ '</li>'		
+		})
+		
+
+		return tvshowList	
+		
+		
 }
  	
 
@@ -39,26 +46,22 @@ $(document).ready(function() {
  		$("#ml").html(moods);
  	})
 
-    $(".js-next").on("click", function() {
+  $(".js-next").on("click", function() {
     var nextId = parseInt($(".js-next").attr("data-id")) + 1;
     
     $.get("/moods/" + nextId + ".json", function(data) {
-      var mood = new Mood(id=data["id"], title = data["title"], tvshow = data["tvshows"]);
-      
+      var mood = new Mood(id=data["id"], title = data["title"]);
+      //debugger
       var mood_shows =[]
       data["tvshows"].forEach(function(element) {
     		mood_shows.push(element)
 	  });
 
 	  mood.tvshows = mood_shows; 
-      
-      var ts_list = ''
 
-      $.each(mood_shows, function(index, value){
-      	var ts = new Tvshow(id=mood_shows[index].id, title = mood_shows[index].title);     
-      	ts_list += ts.showTvshows(); 
-      })
-      
+
+
+      ts_list = mood.showTvshows()
     
       $(".moodTitle").text(mood.title);
         $(".moodTvshow").html(ts_list);
