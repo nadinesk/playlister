@@ -8,22 +8,3 @@
 </div> 
 <br/> 
 
-<script type="text/javascript" charset="utf-8">
-$(window).load(function() {
- // executes when complete page is fully loaded, including all frames, objects and images
- 	
- 	$.get("/moods.json", function(data) {
- 		var moodList = ""; 
- 		data.forEach(function(mood) {
- 			moodList += '<li class="js-mood" data-id="' + mood["id"] + '">' + '<a href="moods/' + mood["id"] + '">'  +  mood["title"] + '</a>' + '</li>'; 
- 			console.log(moodList)
- 		}); 
- 		$("#ml").html(moodList);
- 	})
-
- 	
-});
-
-
-</script>
-
