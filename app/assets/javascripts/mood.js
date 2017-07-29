@@ -23,9 +23,12 @@ Mood.prototype.showMoods = function() {
 Mood.prototype.showTvshows = function() {
 		var moodId = this.id
 		var tvshowList = ''; 
+
+		  
 		
 		$.each(this.tvshows, function(index, value) {			
-			tvshowList += '<li class="js-order" data-id="' + this.id + '">' + '<a href="' + moodId+ '/tvshows/' + this.id + '">'  + this.title+ '</li>'		
+			tvshowList += '<li class="js-order" data-id="' + this.id + '">' + '<a href="' + moodId+ '/tvshows/' + this.id + '">'  + this.title + 
+			'</a></li><form class="tvshow_from_moods"><input type="submit" name="commit" value="Add to Playlist"> <br></form>' 
 		})
 		
 
@@ -71,6 +74,20 @@ $(document).ready(function() {
       alert("You have reached the end of the Moods list"); 
     })
   });
+
+   $('.tvshow_from_moods').submit(function(event) {
+        event.preventDefault(); 
+        var values = $(this).serialize(); 
+        var posting = $.post('/showlines', values); 
+        posting.done(function(data) {
+            var tvshow = data; 
+            debugger
+            //$("#tvshowTitle").text(product["name"]); 
+            //$("#productPrice").text('$' + product["price"]); 
+            //$("#productDescription").text(product["description"]); 
+            //$("#productInventory").text(product["inventory"]); 
+        }); 
+      });
 
 });
 

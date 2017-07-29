@@ -1,7 +1,7 @@
 class ShowlinesController < ApplicationController
 
   def create
-    
+    binding.pry
     current_user.create_current_playlist unless current_user.current_playlist
     
     showline_message = current_user.current_playlist.add_tvshow(params[:tvshow_id])
