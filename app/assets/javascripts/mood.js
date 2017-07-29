@@ -6,13 +6,22 @@ class Mood {
 	}
 }
 
+class Tvshow {
+	constructor(id, title, price){
+		this.id = id; 
+		this.title = title; 
+		this.price = price; 
+	}
+}
+
 Mood.prototype.showMoods = function() {
 		var moodList = ''; 
 		moodList += '<li class="js-mood" data-id="' + this.id + '">' + '<a href="moods/' + this.id+ '">'  +  this.title + '</a>' + '</li>'; 
 		return moodList
 }
 
-Mood.prototype.showTvshows = function() {
+Tvshow.prototype.showTvshows = function() {
+		
 		var tvshowList = ''; 
 		tvshowList += '<li class="js-order" data-id="' + this.id + '">' + ' - ' + this.title+ '</li>'
 		return tvshowList
@@ -43,12 +52,16 @@ $(document).ready(function() {
 
 	  mood.tvshows = mood_shows; 
       
-      var tvshowList = ""; 
-      mood_shows.forEach(function(tvshow) {        
-        tvshow.showTvshows(); 
+      var ts_list = ''
+
+      $.each(mood_shows, function(index, value){
+      	var ts = new Tvshow(id=mood_shows[index].id, title = mood_shows[index].title);     
+      	ts_list += ts.showTvshows(); 
       })
+      
+    
       $(".moodTitle").text(mood.title);
-        $(".moodTvshow").html(tvshowList);
+        $(".moodTvshow").html(ts_list);
       $(".js-next").attr("data-id", mood.id);
     })
     .fail(function() {
