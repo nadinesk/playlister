@@ -25,20 +25,22 @@ class TvshowsController < ApplicationController
   end
 
   def create
-    binding.pry
+    
     @mood = Mood.find(params[:mood_id])
     @tvshow = @mood.tvshows.build(tvshow_params)      
     @mood.save
-    
+    respond_to do |format| 
      if @tvshow.save
       # I need to render something that just has the LI I want...
       # why not just create a comments/show view that shows the LI of one comment?
       # render 'comments/show', :layout => false
-      #binding.pry
+      format.json {render json: @tvshow}
+      format.html { redirect_to moods_path, notice: 'Task was successfully destroyed.' }
       
-      #render 'create.js', :layout => false
+      
     else
-    #  render "posts/show"
+      render "tvshow/show", notice: 'could not add TV show'
+    end
     end
   end
 

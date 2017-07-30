@@ -13,12 +13,14 @@
        
     <% end %>
   <% end %>
+
+  <li class="result"></li> 
 <% if user_signed_in? %>    
 
 <h1>New TV Show</h1>
 
 
-<%= form_for([@mood, @tvshow])  do |tvshows_form|%>
+<%= form_for([@mood, @tvshow], :html => {:id => "blabla"}) do |tvshows_form|%>
     <%= tvshows_form.label :title %>
         <%= tvshows_form.text_field :title %>
     
@@ -43,20 +45,23 @@
 <% end %>
   
 </ul>
-<div class="result"></div> 
+
 
 <script type="text/javascript" charset="utf-8"> 
   $(function () {
       $('form').submit(function(event) {
-            debugger
+            var form = document.getElementById("blabla");
             $.ajax({
                type: ($("input[name='_method']").val() || this.method),
+               datatype: 'json',
                url: this.action,
                data: $(this).serialize(), // either JSON or querystring serializing
                success: function(response){
-      //         $("#comment_content").val("");
+               //$("#tvshow_content").val("");
       //         var $ol = $("div.comments ol")
-      //         $ol.append(response);
+               form.reset(); 
+               $('.result').text(response["title"]);
+               location.reload(); 
 //            }
               }
 //
