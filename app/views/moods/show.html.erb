@@ -14,8 +14,62 @@
     <% end %>
   <% end %>
 <% if user_signed_in? %>    
-    <br /> <%= link_to "Add a new TV show to this mood", new_mood_tvshow_path(@mood) %>
+
+<h1>New TV Show</h1>
+
+
+<%= form_for([@mood, @tvshow])  do |tvshows_form|%>
+    <%= tvshows_form.label :title %>
+        <%= tvshows_form.text_field :title %>
+    
+    <li>
+        <%= tvshows_form.label :suspense_level %>
+        <%= tvshows_form.number_field :suspense_level %>
+      </li>
+      <li>
+        <%= tvshows_form.label :time_commitment %>
+        <%= tvshows_form.number_field :time_commitment %>
+      </li>
+      <li>
+        <%= tvshows_form.label :price %>
+        <%= tvshows_form.number_field :price %>   
+        
+      </li>
+      <%= tvshows_form.submit :id => 'mood_tvshow_new' %>
     <% end %>
+  </ul>
+    
+
+<% end %>
   
 </ul>
+<div class="result"></div> 
+
+<script type="text/javascript" charset="utf-8"> 
+  $(function () {
+      $('form').submit(function(event) {
+            debugger
+            $.ajax({
+               type: ($("input[name='_method']").val() || this.method),
+               url: this.action,
+               data: $(this).serialize(), // either JSON or querystring serializing
+               success: function(response){
+      //         $("#comment_content").val("");
+      //         var $ol = $("div.comments ol")
+      //         $ol.append(response);
+//            }
+              }
+//
+//     // Send a POST request to the correct place that form would've gone too anyway
+//     // along with the actual form data.
+//     e.preventDefault();
+//   })        
+        }); 
+               event.preventDefault();
+      });
+      }); 
+  
+</script> 
+
+
 

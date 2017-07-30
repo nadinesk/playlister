@@ -19,7 +19,7 @@ class MoodsController < ApplicationController
   	def show
     	@mood = Mood.find(params[:id])
     	@tvshows = @mood.tvshows
-
+      @tvshow = Tvshow.new
       respond_to do |format|
         format.html { render :show }
         format.json { render json: @mood }

@@ -40,7 +40,7 @@ class PlaylistsController < ApplicationController
   end
 
   def submit
-    binding.pry
+    
     
     playlist = Playlist.find(params[:id])
     playlist.change_attributes

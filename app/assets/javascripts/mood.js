@@ -6,13 +6,13 @@ class Mood {
 	}
 }
 
-class Tvshow {
+/*class Tvshow {
 	constructor(id, title, price){
 		this.id = id; 
 		this.title = title; 
 		this.price = price; 
 	}
-}
+} */
 
 Mood.prototype.showMoods = function() {
 		var moodList = ''; 
@@ -23,14 +23,12 @@ Mood.prototype.showMoods = function() {
 Mood.prototype.showTvshows = function() {
 		var moodId = this.id
 		var tvshowList = ''; 
-
-		  
 		
 		$.each(this.tvshows, function(index, value) {			
+			
 			tvshowList += '<li class="js-order" data-id="' + this.id + '">' + '<a href="' + moodId+ '/tvshows/' + this.id + '">'  + this.title + 
-			'</a></li><form class="tvshow_from_moods"><input type="submit" name="commit" value="Add to Playlist"> <br></form>' 
-		})
-		
+			'</a><div><input data-id="' + this.id  +  '"id="target" data-price = "' + this.price + '" data-title = "' + this.title + '" type="button", value="Add to Playlist"></input> </div><br>' 
+		})		
 
 		return tvshowList	
 		
@@ -41,13 +39,17 @@ Mood.prototype.showTvshows = function() {
 
 $(document).ready(function() {
   $.get("/moods.json", function(data) {
+ 		
  		var moods = '' 		
  		$.each(data, function(index, value){        
         var mood = new Mood(id= data[index].id, title= data[index].title);
+
         moods += mood.showMoods();
       });
  		$("#ml").html(moods);
  	})
+
+  
 
   $(".js-next").on("click", function() {
     var nextId = parseInt($(".js-next").attr("data-id")) + 1;
@@ -74,20 +76,41 @@ $(document).ready(function() {
       alert("You have reached the end of the Moods list"); 
     })
   });
+   
+ $(".moodTvshow").on('click', '#target',function(event) {
+   	event.preventDefault(); 
 
-   $('.tvshow_from_moods').submit(function(event) {
-        event.preventDefault(); 
-        var values = $(this).serialize(); 
-        var posting = $.post('/showlines', values); 
-        posting.done(function(data) {
-            var tvshow = data; 
-            debugger
-            //$("#tvshowTitle").text(product["name"]); 
-            //$("#productPrice").text('$' + product["price"]); 
-            //$("#productDescription").text(product["description"]); 
-            //$("#productInventory").text(product["inventory"]); 
-        }); 
-      });
+   	tvshowId = $(this).attr("data-id") 
+   	tvshowPrice = $(this).attr("data-price") 
+   	tvshowTitle = $(this).attr("data-title") 
+   	
+   	$.ajax({
+        url:'/showlines',
+        type:'POST',
+        datatype:'json',
+        data:{
+            tvshow_id: tvshowId,  
+            tvshowPrice: tvshowPrice, 
+            tvshowTitle: tvshowTitle, 
+            authenticity_token: window._token            
+        },
+
+        success:function(response){
+             window.location = "/playlists";
+        },
+        error:function(data){
+        	alert('n');
+           
+        }
+    });
+   	
+   });
+
+
+	
+
 
 });
+
+//mood_tvshow_new
 
