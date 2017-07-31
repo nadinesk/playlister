@@ -30,7 +30,7 @@ Mood.prototype.showTvshows = function() {
 		$.each(this.tvshows, function(index, value) {			
 			
 			tvshowList += '<li class="js-order" data-id="' + this.id + '">' + '<a href="' + moodId+ '/tvshows/' + this.id + '">'  + this.title + 
-			'</a><div><input data-id="' + this.id  +  '"id="target" data-price = "' + this.price + '" data-title = "' + this.title + '" type="button", value="Add to Playlist"></input> </div><br>' 
+			'</a> - $' + (this.price/100) + '<br>' 
 		})		
 
     tvshowList += '<div class="test" data-moodId="' + this.id + '">'
@@ -40,7 +40,7 @@ Mood.prototype.showTvshows = function() {
 		
 }
 
-Mood.prototype.tvshowFormOnMood = function() {
+/*Mood.prototype.tvshowFormOnMood = function() {
   var moodId = this.id
   debugger
   var tvshowForm = '<form id="blablah" class="new_tvshow" action="/moods"' + this.id + 
@@ -54,11 +54,11 @@ Mood.prototype.tvshowFormOnMood = function() {
   return tvshowForm
   
 
-}
+} */
 
 Tvshow.prototype.showNewShow = function() {
 
-  var newShow = '<li><a href=/tvshows/' + this.id + '">' + this.title + '</a>' + '-' + this.price + '</li>'
+  var newShow = '<li><a href=/tvshows/' + this.id + '">' + this.title + '</a>' + ' - $' + (this.price/100) + '</li>'
                $('.result').html(newShow);
                //location.reload(); 
 
@@ -111,7 +111,7 @@ $(document).ready(function() {
     })
   });
    
- $(".moodTvshow").on('click', '#target',function(event) {
+ /*$(".moodTvshow").on('click', '#target',function(event) {
    	event.preventDefault(); 
 
    	tvshowId = $(this).attr("data-id") 
@@ -138,7 +138,7 @@ $(document).ready(function() {
         }
     });
    	
-   });
+   }); */
 
  $("#blabla").on('submit', function(event) {
     

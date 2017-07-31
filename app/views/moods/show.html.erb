@@ -6,12 +6,7 @@
     <li>
       <%= link_to tvshow.title, tvshow_path(tvshow) %> - $<%= tvshow.price.to_f/100  %>
     </li>
-    <% if user_signed_in? %>    
-      <%= form_tag showlines_path(tvshow_id: tvshow) do %>
-         <br /> <%= submit_tag "Add to Playlist" %> <br />
-      <% end %>
-       
-    <% end %>
+    
   <% end %>
 
   <div class="result"></div> 
