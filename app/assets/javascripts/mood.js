@@ -37,30 +37,14 @@ Mood.prototype.showTvshows = function() {
 
 		return tvshowList	
 		
-		
 }
 
-/*Mood.prototype.tvshowFormOnMood = function() {
-  var moodId = this.id
-  debugger
-  var tvshowForm = '<form id="blablah" class="new_tvshow" action="/moods"' + this.id + 
-  '"/tvshows" method="post"><input type ="hidden" name = "authenticity_token" value = "<%= form_authenticity_token %>"><label for="tvshow_title">Title</label><input type="text" name= "' + 
-  this.tvshow.title + '" id="tvshow_title"><li><label for="tvshow_suspense_level">Suspense level</label><input type="text" name= "' + 
-  this.tvshow.suspense_level + '" id="tvshow_suspense_level"></li><li><label for="tvshow_time_commitment">Time commitment</label><input type="text" name= "' + 
-  this.tvshow.time_commitment + '" id="tvshow_time_commitment"></li><li><label for="tvshow_time_commitment">Prices</label><input type="text" name= "' + 
-  this.tvshow.price + '" id="tvshow_time_commitment"></li><input type="submit" name="commit" value="Create Tvshow" id="mood_tvshow_new">'
 
-
-  return tvshowForm
-  
-
-} */
 
 Tvshow.prototype.showNewShow = function() {
 
   var newShow = '<li><a href=/tvshows/' + this.id + '">' + this.title + '</a>' + ' - $' + (this.price/100) + '</li>'
-               $('.result').html(newShow);
-               //location.reload(); 
+               $('.result').html(newShow);               
 
   $('.test').html(newShow); 
 }
@@ -68,7 +52,7 @@ Tvshow.prototype.showNewShow = function() {
 
 
 $(document).ready(function() {
-  //load index with AJAX
+  
   $.get("/moods.json", function(data) {
  		
  		var moods = '' 		
@@ -93,13 +77,8 @@ $(document).ready(function() {
     		mood_shows.push(element)
 	  });
 
-	     mood.tvshows = mood_shows; 
-
-      
-
-      ts_list = mood.showTvshows()
-
-      //test_form = mood.tvshowFormOnMood()
+        mood.tvshows = mood_shows; 
+        ts_list = mood.showTvshows()
     
       $(".moodTitle").text(mood.title);
         $(".moodTvshow").html(ts_list);
@@ -111,36 +90,7 @@ $(document).ready(function() {
     })
   });
    
- /*$(".moodTvshow").on('click', '#target',function(event) {
-   	event.preventDefault(); 
-
-   	tvshowId = $(this).attr("data-id") 
-   	tvshowPrice = $(this).attr("data-price") 
-   	tvshowTitle = $(this).attr("data-title") 
-   	
-   	$.ajax({
-        url:'/showlines',
-        type:'POST',
-        datatype:'json',
-        data:{
-            tvshow_id: tvshowId,  
-            tvshowPrice: tvshowPrice, 
-            tvshowTitle: tvshowTitle, 
-            authenticity_token: window._token            
-        },
-
-        success:function(response){
-             window.location = "/playlists";
-        },
-        error:function(data){
-        	alert('n');
-           
-        }
-    });
-   	
-   }); */
-
- $("#blabla").on('submit', function(event) {
+  $("#blabla").on('submit', function(event) {
     
     var form = document.getElementById("blabla");
     var act = this.action
@@ -167,10 +117,8 @@ $(document).ready(function() {
                form.reset(); 
 
               }
-
-
         }); 
-     debugger
+     
       event.preventDefault();
 
  }); 

@@ -2,9 +2,11 @@ class TvshowsController < ApplicationController
  
 
   def index
-    @mood = Mood.find(params[:mood_id])
+    #@mood = Mood.find(params[:mood_id])
     
-    @tvshows = @mood.tvshows
+    #@tvshows = @mood.tvshows
+
+    @tvshows = Tvshow.all
     
   end
   
@@ -35,7 +37,8 @@ class TvshowsController < ApplicationController
       # why not just create a comments/show view that shows the LI of one comment?
       # render 'comments/show', :layout => false
       format.json {render json: @tvshow}
-      format.html { redirect_to moods_path, notice: 'Task was successfully destroyed.' }
+      format.html { redirect_to @tvshow, notice: 'TV show was successfully created.' }
+
       
       
     else

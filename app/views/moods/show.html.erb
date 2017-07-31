@@ -1,4 +1,4 @@
-<a href="#" class="js-next" data-id="<%=@mood.id%>">Next Product</a>
+<a href="#" class="js-next" data-id="<%=@mood.id%>">Next Mood</a>
 <h1 class="moodTitle"><%= @mood.title %></h1>
 
 <ul class="moodTvshow">
@@ -35,42 +35,10 @@
       </li>
       <%= tvshows_form.submit :id => 'mood_tvshow_new' %>
     <% end %>
-  </ul>
+  
     
 
 <% end %>
   
-</ul>
-
-<!--
-<script type="text/javascript" charset="utf-8"> 
-  $(function () {
-      $('form').submit(function(event) {
-            var form = document.getElementById("blabla");
-            $.ajax({
-               type: ($("input[name='_method']").val() || this.method),
-               datatype: 'json',
-               url: this.action,
-               data: $(this).serialize(), // either JSON or querystring serializing
-               success: function(response){
-               //$("#tvshow_content").val("");
-      //         var $ol = $("div.comments ol")
-               form.reset(); 
-               $('.result').append('<li>').text(response["title"]);
-               location.reload(); 
-//            }
-              }
-//
-//     // Send a POST request to the correct place that form would've gone too anyway
-//     // along with the actual form data.
-//     e.preventDefault();
-//   })        
-        }); 
-               event.preventDefault();
-      });
-      }); 
-  
-</script> --> 
-
 
 
