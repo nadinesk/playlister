@@ -92,7 +92,7 @@ $(document).ready(function() {
 
       ts_list = mood.showTvshows()
 
-      test_form = mood.tvshowFormOnMood()
+      
     
       $(".moodTitle").text(mood.title);
         $(".moodTvshow").html(ts_list)
