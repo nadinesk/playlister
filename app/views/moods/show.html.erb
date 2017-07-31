@@ -13,14 +13,15 @@
        
     <% end %>
   <% end %>
-</ul>
+
   <div class="result"></div> 
 <% if user_signed_in? %>    
-<div class="tvshowFormSection">
+</ul>
+
 <h1>New TV Show</h1>
 
 
-<%= form_for([@mood, @tvshow], :class => 'new_tvshow', :html => {:id => "blabla"}) do |tvshows_form|%>
+<%= form_for([@mood, @tvshow], :html => {:id => "blabla"}) do |tvshows_form|%>
     <%= tvshows_form.label :title %>
         <%= tvshows_form.text_field :title %>
     
@@ -74,8 +75,7 @@
       });
       }); 
   
-</script> 
---> 
+</script> --> 
 
 
 

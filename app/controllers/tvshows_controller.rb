@@ -21,7 +21,7 @@ class TvshowsController < ApplicationController
 
 
   def edit 
-	 @tvshow = Tvshow.find(params[:id])
+   @tvshow = Tvshow.find(params[:id])
   end
 
   def create
@@ -45,15 +45,15 @@ class TvshowsController < ApplicationController
   end
 
 
-  def destroy  	
-  	 @tvshow = Tvshow.find(params[:id])
+  def destroy   
+     @tvshow = Tvshow.find(params[:id])
      @tvshow.destroy
      redirect_to store_path
   end
 
   def update
-  	@tvshow = Tvshow.find(params[:id])
-  	respond_to do |format|
+    @tvshow = Tvshow.find(params[:id])
+    respond_to do |format|
       if @tvshow.update(tvshow_params)
         format.html { redirect_to @tvshow, notice: 'Tv Show was successfully updated.' }
       else

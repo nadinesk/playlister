@@ -7,9 +7,11 @@ class ShowlinesController < ApplicationController
     showline_message = current_user.current_playlist.add_tvshow(params[:tvshow_id])
     
     if showline_message == ("successfully added tv show")
-      showline = current_user.current_playlist.save_show(params[:tvshow_id])
-      if showline.save
+      @showline = current_user.current_playlist.save_show(params[:tvshow_id])
+      if @showline.save
         respond_to do |format|
+          binding.pry
+          format.json {render json: @showline}
           format.html {redirect_to playlist_path(current_user.current_playlist), notice: 'Tvshow added to playlist!'}
           
         

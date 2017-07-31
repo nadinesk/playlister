@@ -33,7 +33,7 @@ Mood.prototype.showTvshows = function() {
 			'</a><div><input data-id="' + this.id  +  '"id="target" data-price = "' + this.price + '" data-title = "' + this.title + '" type="button", value="Add to Playlist"></input> </div><br>' 
 		})		
 
-    tvshowList += '<div class="test">'
+    tvshowList += '<div class="test" data-moodId="' + this.id + '">'
 
 		return tvshowList	
 		
@@ -42,10 +42,15 @@ Mood.prototype.showTvshows = function() {
 
 Mood.prototype.tvshowFormOnMood = function() {
   var moodId = this.id
+  debugger
+  var tvshowForm = '<form id="blablah" class="new_tvshow" action="/moods"' + this.id + 
+  '"/tvshows" method="post"><input type ="hidden" name = "authenticity_token" value = "<%= form_authenticity_token %>"><label for="tvshow_title">Title</label><input type="text" name= "' + 
+  this.tvshow.title + '" id="tvshow_title"><li><label for="tvshow_suspense_level">Suspense level</label><input type="text" name= "' + 
+  this.tvshow.suspense_level + '" id="tvshow_suspense_level"></li><li><label for="tvshow_time_commitment">Time commitment</label><input type="text" name= "' + 
+  this.tvshow.time_commitment + '" id="tvshow_time_commitment"></li><li><label for="tvshow_time_commitment">Prices</label><input type="text" name= "' + 
+  this.tvshow.price + '" id="tvshow_time_commitment"></li><input type="submit" name="commit" value="Create Tvshow" id="mood_tvshow_new">'
 
-  var tvshowForm = '<form id="blabla"> <input type="hidden" name="authenticity_token"><input type="submit">'
 
-  
   return tvshowForm
   
 
@@ -56,6 +61,8 @@ Tvshow.prototype.showNewShow = function() {
   var newShow = '<li><a href=/tvshows/' + this.id + '">' + this.title + '</a>' + '-' + this.price + '</li>'
                $('.result').html(newShow);
                //location.reload(); 
+
+  $('.test').html(newShow); 
 }
  	
 
@@ -92,11 +99,11 @@ $(document).ready(function() {
 
       ts_list = mood.showTvshows()
 
-      
+      //test_form = mood.tvshowFormOnMood()
     
       $(".moodTitle").text(mood.title);
-        $(".moodTvshow").html(ts_list)
-        
+        $(".moodTvshow").html(ts_list);
+        //$(".test").html(test_form);
       $(".js-next").attr("data-id", mood.id);
     })
     .fail(function() {
@@ -135,25 +142,28 @@ $(document).ready(function() {
 
  $("#blabla").on('submit', function(event) {
     
-    
     var form = document.getElementById("blabla");
+    var act = this.action
+    var moodStuff = $('.test').attr("data-moodid")
+
+    var urlStuff = '/moods/' + moodStuff + '/tvshows'
+    
      $.ajax({
                type: ($("input[name='_method']").val() || this.method),
                datatype: 'json',
-               url: this.action,
-               data: $(this).serialize(), 
-               authenticity_token: window._token,            // either JSON or querystring serializing
+               url: urlStuff,
+               data: $(this).serialize(),
                success: function(response){
-
+                  
               tvshow = new Tvshow(id=response["id"], title=response["title"], price=response["price"], time_commitment=response["time_commitment"], suspense_level = response["suspense_level"])
               tvshow.showNewShow(); 
-              
                form.reset(); 
 
               }
 
-        });
-        
+
+        }); 
+     
       event.preventDefault();
 
  }); 
@@ -161,6 +171,4 @@ $(document).ready(function() {
 
 
 });
-
-
 
