@@ -1,22 +1,7 @@
-<a href="#" class="js-next" data-id="<%=@mood.id%>">Next Mood</a>
-<h1 class="moodTitle"><%= @mood.title %></h1>
-
-<ul class="moodTvshow">
-  <% @tvshows.each do |tvshow| %>
-    <li>
-      <%= link_to tvshow.title, tvshow_path(tvshow) %> - $<%= tvshow.price.to_f/100  %>
-    </li>
-    
-  <% end %>
-
-  <div class="result"></div> 
-<% if user_signed_in? %>    
-</ul>
-
 <h1>New TV Show</h1>
 
 
-<%= form_for([@mood, @tvshow], :html => {:id => "blabla"}) do |tvshows_form|%>
+<%= form_for([@mood, @tvshow], :class => 'new_tvshow', :html => {:id => "blabla"}),remote: true do |tvshows_form|%>
     <%= tvshows_form.label :title %>
         <%= tvshows_form.text_field :title %>
     
@@ -35,10 +20,4 @@
       </li>
       <%= tvshows_form.submit :id => 'mood_tvshow_new' %>
     <% end %>
-  
-    
-
-<% end %>
-  
-
-
+  </ul>
