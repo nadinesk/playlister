@@ -6,17 +6,20 @@ class Mood {
 	}
 }
 
-/*class Tvshow {
-	constructor(id, title, price){
+class Tvshow {
+	constructor(id, title, price, suspense_level, time_commitment){
 		this.id = id; 
 		this.title = title; 
 		this.price = price; 
+    this.time_commitment = time_commitment; 
+    this.suspense_level = suspense_level; 
 	}
-} */
+} 
 
 Mood.prototype.showMoods = function() {
 		var moodList = ''; 
-		moodList += '<li class="js-mood" data-id="' + this.id + '">' + '<a href="moods/' + this.id+ '">'  +  this.title + '</a>' + '</li>'; 
+		moodList += '<li class="js-mood" data-id="' + this.id + '">' + '<a href="moods/' + this.id+ '">' 
+     +  this.title + '</a>' + '</li>'; 
 		return moodList
 }
 
@@ -34,10 +37,18 @@ Mood.prototype.showTvshows = function() {
 		
 		
 }
+
+Tvshow.prototype.showNewShow = function() {
+
+  var newShow = '<li><a href=/tvshows/' + this.id + '">' + this.title + '</a>' + ' - $' + (this.price/100) + '</li>'
+               $('.result').html(newShow);
+               //location.reload(); 
+}
  	
 
 
 $(document).ready(function() {
+  //load index with AJAX
   $.get("/moods.json", function(data) {
  		
  		var moods = '' 		
@@ -106,11 +117,29 @@ $(document).ready(function() {
    	
    });
 
+ $("#blabla").on('submit', function(event) {
+    
+    var form = document.getElementById("blabla");
+    
+     $.ajax({
+               type: ($("input[name='_method']").val() || this.method),
+               datatype: 'json',
+               url: this.action,
+               data: $(this).serialize(), // either JSON or querystring serializing
+               success: function(response){
 
+              tvshow = new Tvshow(id=response["id"], title=response["title"], price=response["price"], time_commitment=response["time_commitment"], suspense_level = response["suspense_level"])
+              tvshow.showNewShow(); 
+               form.reset(); 
+
+              }
+
+        }); 
+      event.preventDefault();
+
+ }); 
 	
 
 
 });
-
-//mood_tvshow_new
 

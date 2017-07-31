@@ -14,13 +14,13 @@
     <% end %>
   <% end %>
 
-  <li class="result"></li> 
+  <div class="result"></div> 
 <% if user_signed_in? %>    
 
 <h1>New TV Show</h1>
 
 
-<%= form_for([@mood, @tvshow], :html => {:id => "blabla"}) do |tvshows_form|%>
+<%= form_for([@mood, @tvshow], :class => 'new_tvshow', :html => {:id => "blabla"}) do |tvshows_form|%>
     <%= tvshows_form.label :title %>
         <%= tvshows_form.text_field :title %>
     
@@ -46,7 +46,7 @@
   
 </ul>
 
-
+<!--
 <script type="text/javascript" charset="utf-8"> 
   $(function () {
       $('form').submit(function(event) {
@@ -60,7 +60,7 @@
                //$("#tvshow_content").val("");
       //         var $ol = $("div.comments ol")
                form.reset(); 
-               $('.result').text(response["title"]);
+               $('.result').append('<li>').text(response["title"]);
                location.reload(); 
 //            }
               }
@@ -75,6 +75,7 @@
       }); 
   
 </script> 
+--> 
 
 
 

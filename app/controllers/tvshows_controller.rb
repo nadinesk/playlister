@@ -2,9 +2,9 @@ class TvshowsController < ApplicationController
  
 
   def index
-    @mood = Mood.find(params[:mood_id])
+    #@mood = Mood.find(params[:mood_id])
     
-    @tvshows = @mood.tvshows
+    @tvshows = Tvshow.all
     
   end
   
