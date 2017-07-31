@@ -146,12 +146,19 @@ $(document).ready(function() {
     var act = this.action
     var moodStuff = $('.test').attr("data-moodid")
 
-    var urlStuff = '/moods/' + moodStuff + '/tvshows'
+    function urlStuff() {
+      if (moodStuff) {
+        return '/moods/' + moodStuff + '/tvshows'
+      }
+      else {
+         return act 
+      }
+    }
     
      $.ajax({
                type: ($("input[name='_method']").val() || this.method),
                datatype: 'json',
-               url: urlStuff,
+               url: urlStuff(),
                data: $(this).serialize(),
                success: function(response){
                   
@@ -163,7 +170,7 @@ $(document).ready(function() {
 
 
         }); 
-     
+     debugger
       event.preventDefault();
 
  }); 
