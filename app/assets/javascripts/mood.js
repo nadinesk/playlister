@@ -33,14 +33,27 @@ Mood.prototype.showTvshows = function() {
 			'</a><div><input data-id="' + this.id  +  '"id="target" data-price = "' + this.price + '" data-title = "' + this.title + '" type="button", value="Add to Playlist"></input> </div><br>' 
 		})		
 
+    tvshowList += '<div class="test">'
+
 		return tvshowList	
 		
 		
 }
 
+Mood.prototype.tvshowFormOnMood = function() {
+  var moodId = this.id
+
+  var tvshowForm = '<form id="blabla"> <input type="hidden" name="authenticity_token"><input type="submit">'
+
+  
+  return tvshowForm
+  
+
+}
+
 Tvshow.prototype.showNewShow = function() {
 
-  var newShow = '<li><a href=/tvshows/' + this.id + '">' + this.title + '</a>' + ' - $' + (this.price/100) + '</li>'
+  var newShow = '<li><a href=/tvshows/' + this.id + '">' + this.title + '</a>' + '-' + this.price + '</li>'
                $('.result').html(newShow);
                //location.reload(); 
 }
@@ -73,14 +86,17 @@ $(document).ready(function() {
     		mood_shows.push(element)
 	  });
 
-	  mood.tvshows = mood_shows; 
+	     mood.tvshows = mood_shows; 
 
-
+      
 
       ts_list = mood.showTvshows()
+
+      test_form = mood.tvshowFormOnMood()
     
       $(".moodTitle").text(mood.title);
-        $(".moodTvshow").html(ts_list);
+        $(".moodTvshow").html(ts_list)
+        
       $(".js-next").attr("data-id", mood.id);
     })
     .fail(function() {
@@ -119,22 +135,25 @@ $(document).ready(function() {
 
  $("#blabla").on('submit', function(event) {
     
-    var form = document.getElementById("blabla");
     
+    var form = document.getElementById("blabla");
      $.ajax({
                type: ($("input[name='_method']").val() || this.method),
                datatype: 'json',
                url: this.action,
-               data: $(this).serialize(), // either JSON or querystring serializing
+               data: $(this).serialize(), 
+               authenticity_token: window._token,            // either JSON or querystring serializing
                success: function(response){
 
               tvshow = new Tvshow(id=response["id"], title=response["title"], price=response["price"], time_commitment=response["time_commitment"], suspense_level = response["suspense_level"])
               tvshow.showNewShow(); 
+              
                form.reset(); 
 
               }
 
-        }); 
+        });
+        
       event.preventDefault();
 
  }); 
@@ -142,4 +161,6 @@ $(document).ready(function() {
 
 
 });
+
+
 

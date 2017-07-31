@@ -25,7 +25,7 @@ class TvshowsController < ApplicationController
   end
 
   def create
-    
+    binding.pry
     @mood = Mood.find(params[:mood_id])
     @tvshow = @mood.tvshows.build(tvshow_params)      
     @mood.save
