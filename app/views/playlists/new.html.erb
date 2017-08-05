@@ -1,14 +1,14 @@
 <%= form_for @playlist do |f| %>
-  TV Shows
-   sfasdfasdf
+  <h2>Playlists</h2>
+   
   <ul>
     <%= f.fields_for :tvshow do |tvshows_form| %>
 
       <li>
         <%= tvshows_form.label :title %>
         <%= tvshows_form.text_field :title %>
- 	  </li>
- 	  <li>
+ 	    </li>
+ 	    <li>
         <%= tvshows_form.label :suspense_level %>
         <%= tvshows_form.number_field :suspense_level %>
       </li>
@@ -18,8 +18,7 @@
       </li>
       <li>
         <%= tvshows_form.label :price %>
-        <%= tvshows_form.number_field :price %>		
-        
+        <%= tvshows_form.number_field :price %>		        
       </li>
     <% end %>
   </ul>

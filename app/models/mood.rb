@@ -21,21 +21,5 @@ class Mood < ActiveRecord::Base
     end
   end
 
-   # def tvshows_attributes=(tvshow_attributes)
-    #	binding.pry
-     #tvshow_attributes.values.each do |tvshow_attribute|
-      # tvshow = Tvshow.find_or_create_by(tvshow_attribute)
-       #self.tvshows << tvshow
-   # end
-  # end
-
-   # def tvshows_attributes
-    #	binding.pry
-     #tvshow_attributes.values.each do |tvshow_attribute|
-      # tvshow = Tvshow.find_or_create_by(tvshow_attribute)
-       #self.tvshows << tvshow
-   # end
-  # end
-
   
 end

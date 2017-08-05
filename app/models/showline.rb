@@ -9,10 +9,8 @@
 
 
 class Showline < ActiveRecord::Base
+  
   belongs_to :tvshow
   belongs_to :playlist
-
-  #def total
-  #  item.price * quantity
-  #end
+  
 end

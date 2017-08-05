@@ -14,33 +14,37 @@
   </div>
 <% end %>
 
-Mood
-<%= form_for @mood do |f| %>
+<h3>Mood</h3>
 
-    <%= f.label :title %>
-        <%= f.text_field :title %>
+<%= form_for @mood do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <h2>TV show</h2>  
   <ul>
+
     <%= f.fields_for :tvshows do |tvshows_form| %>
-TV show
-      
-        <%= tvshows_form.label :title %>
-        <%= tvshows_form.text_field :title %>
-    
-    <li>
-        <%= tvshows_form.label :suspense_level %>
-        <%= tvshows_form.number_field :suspense_level %>
-      </li>
-      <li>
-        <%= tvshows_form.label :time_commitment %>
-        <%= tvshows_form.number_field :time_commitment %>
-      </li>
-      <li>
-        <%= tvshows_form.label :price %>
-        <%= tvshows_form.number_field :price %>   
+        <li>      
+          <%= tvshows_form.label :title %>
+          <%= tvshows_form.text_field :title %>
+        </li>
         
-      </li>
+        <li>
+          <%= tvshows_form.label :suspense_level %>
+          <%= tvshows_form.number_field :suspense_level %>
+        </li>
+        <li>
+          <%= tvshows_form.label :time_commitment %>
+          <%= tvshows_form.number_field :time_commitment %>
+        </li>
+        <li>
+          <%= tvshows_form.label :price %>
+          <%= tvshows_form.number_field :price %>           
+        </li>
     <% end %>
+
   </ul>
-    <%= f.submit %>
+  <%= f.submit %>
+
 <% end %>
 

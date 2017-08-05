@@ -11,8 +11,7 @@ class MoodsController < ApplicationController
     respond_to do |format|
         format.html { render :index }
         format.json {  render json: @moods, each_serializer: MoodSerializer }
-      end
-    
+    end    
   end
 
 
@@ -26,15 +25,14 @@ class MoodsController < ApplicationController
       end
   	end
 
-  	def create  		 
-  		 @mood = Mood.create(mood_params)	
-  		 
+  	def create  		   		 
+       @mood = Mood.create(mood_params)	  		 
        if @mood.save
         redirect_to mood_path(@mood)
   		 else
         render :new
-       end
-  	end
+       end  	
+    end
 
 
 

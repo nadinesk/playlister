@@ -1,42 +1,44 @@
 <a href="#" class="js-next" data-id="<%=@mood.id%>">Next Mood</a>
+
 <h1 class="moodTitle"><%= @mood.title %></h1>
 
 <ul class="moodTvshow">
+  
   <% @tvshows.each do |tvshow| %>
     <li>
       <%= link_to tvshow.title, tvshow_path(tvshow) %> - $<%= tvshow.price.to_f/100  %>
-    </li>
-    
+    </li>    
   <% end %>
 
   <div class="result"></div> 
-<% if user_signed_in? %>    
+
 </ul>
 
-<h1>New TV Show</h1>
+<% if user_signed_in? %>    
 
+  <h1>New TV Show</h1>
 
-<%= form_for([@mood, @tvshow], :html => {:id => "blabla"}) do |tvshows_form|%>
-    <%= tvshows_form.label :title %>
-        <%= tvshows_form.text_field :title %>
-    
+  <%= form_for([@mood, @tvshow], :html => {:id => "blabla"}) do |tvshows_form|%>
     <li>
-        <%= tvshows_form.label :suspense_level %>
-        <%= tvshows_form.number_field :suspense_level %>
-      </li>
-      <li>
-        <%= tvshows_form.label :time_commitment %>
-        <%= tvshows_form.number_field :time_commitment %>
-      </li>
-      <li>
-        <%= tvshows_form.label :price %>
-        <%= tvshows_form.number_field :price %>   
-        
-      </li>
-      <%= tvshows_form.submit :id => 'mood_tvshow_new' %>
-    <% end %>
-  
+      <%= tvshows_form.label :title %>
+      <%= tvshows_form.text_field :title %>
+    </li> 
+    <li>
+      <%= tvshows_form.label :suspense_level %>
+      <%= tvshows_form.number_field :suspense_level %>
+    </li>
+    <li>
+      <%= tvshows_form.label :time_commitment %>
+      <%= tvshows_form.number_field :time_commitment %>
+    </li>
+    <li>
+      <%= tvshows_form.label :price %>
+      <%= tvshows_form.number_field :price %>             
+    </li>
     
+    <%= tvshows_form.submit :id => 'mood_tvshow_new' %>
+    
+  <% end %>
 
 <% end %>
   

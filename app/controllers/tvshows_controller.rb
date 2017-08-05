@@ -2,16 +2,10 @@ class TvshowsController < ApplicationController
  
 
   def index
-    #@mood = Mood.find(params[:mood_id])
-    
-    #@tvshows = @mood.tvshows
-
-    @tvshows = Tvshow.all
-    
+    @tvshows = Tvshow.all    
   end
   
   def show
-
     @tvshow = Tvshow.find(params[:id])
   end
 
@@ -26,24 +20,18 @@ class TvshowsController < ApplicationController
 	 @tvshow = Tvshow.find(params[:id])
   end
 
-  def create
-    
+  def create    
     @mood = Mood.find(params[:mood_id])
     @tvshow = @mood.tvshows.build(tvshow_params)      
     @mood.save
+    binding.pry
     respond_to do |format| 
-     if @tvshow.save
-      # I need to render something that just has the LI I want...
-      # why not just create a comments/show view that shows the LI of one comment?
-      # render 'comments/show', :layout => false
-      format.json {render json: @tvshow}
-      format.html { redirect_to @tvshow, notice: 'TV show was successfully created.' }
-
-      
-      
-    else
-      render "tvshow/show", notice: 'could not add TV show'
-    end
+      if @tvshow.save      
+        format.json {render json: @tvshow}
+        format.html { redirect_to @tvshow, notice: 'TV show was successfully created.' }
+      else
+        render "tvshow/show", notice: 'could not add TV show'
+      end
     end
   end
 

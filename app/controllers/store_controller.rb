@@ -1,7 +1,6 @@
 class StoreController < ApplicationController
 
-  def index
-    
+  def index    
     @tvshows = Tvshow.all.order(:title)
     @moods = Mood.order(:title)
   end
