@@ -7,49 +7,49 @@ class Mood {
 }
 
 class Tvshow {
-	constructor(id, title, price, suspense_level, time_commitment){
-		this.id = id; 
-		this.title = title; 
-		this.price = price; 
-    this.time_commitment = time_commitment; 
-    this.suspense_level = suspense_level; 
+	constructor(attributes) {
+    for (var key in attributes) {
+      this[key] = attributes[key];
+    }
+		// this.id = id; 
+		// this.title = title; 
+		// this.price = price; 
+  //   this.time_commitment = time_commitment; 
+  //   this.suspense_level = suspense_level; 
 	}
 } 
 
 Mood.prototype.showMoods = function() {
-		var moodList = ''; 
-		moodList += '<li class="js-mood" data-id="' + this.id + '">' + '<a href="moods/' + this.id+ '">' 
-     +  this.title + '</a>' + '</li>'; 
-		return moodList
+	return (`
+    <li class="js-mood" data-id="${this.id}">
+      <a href="moods/${this.id}">
+        ${this.title}
+      </a>
+    </li> 
+	`);
 }
 
 Mood.prototype.showTvshows = function() {
-		var moodId = this.id
-		var tvshowList = ''; 
+	var moodId = this.id
+	var tvshowList = ''; 
+	
+	$.each(this.tvshows, function(index, value) {			
 		
-		$.each(this.tvshows, function(index, value) {			
-			
-			tvshowList += '<li class="js-order" data-id="' + this.id + '">' + '<a href="' + moodId+ '/tvshows/' + this.id + '">'  + this.title + 
-			'</a> - $' + (this.price/100) + '<br>' 
-		})		
+		tvshowList += '<li class="js-order" data-id="' + this.id + '">' + '<a href="' + moodId+ '/tvshows/' + this.id + '">'  + this.title + 
+		'</a> - $' + (this.price/100) + '<br>' 
+	})		
 
-    tvshowList += '<div class="test" data-moodId="' + this.id + '">'
+  tvshowList += '<div class="test" data-moodId="' + this.id + '">'
 
-		return tvshowList	
-		
+	return tvshowList	
 }
-
 
 
 Tvshow.prototype.showNewShow = function() {
-
   var newShow = '<li><a href=/tvshows/' + this.id + '">' + this.title + '</a>' + ' - $' + (this.price/100) + '</li>'
-               $('.result').html(newShow);               
-
+  $('.result').html(newShow);               
   $('.test').html(newShow); 
 }
- 	
-
 
 $(document).ready(function() {
   
@@ -63,9 +63,9 @@ $(document).ready(function() {
  		
  		var moods = '' 		
  		$.each(data, function(index, value){        
-        var mood = new Mood(id= data[index].id, title= data[index].title);
-        moods += mood.showMoods();
-      });
+      var mood = new Mood(id= data[index].id, title= data[index].title);
+      moods += mood.showMoods();
+    });
  		
     $("#ml").html(moods);
  	})
@@ -130,25 +130,24 @@ $(document).ready(function() {
         return act 
       }
     }
+
+    $.ajax({
+      type: ($("input[name='_method']").val() || this.method),
+      datatype: 'json',
+      url: urlStuff(),
+      data: $(this).serialize(),
+      success: function(attributes){                            
+        var tvshow = new Tvshow(attributes)
+        tvshow.showNewShow();           
+        form.reset(); 
+         document.location.reload();
+
+      }
+    }); 
     
-     $.ajax({
-        type: ($("input[name='_method']").val() || this.method),
-        datatype: 'json',
-        url: urlStuff(),
-        data: $(this).serialize(),
-        success: function(response){                            
-          tvshow = new Tvshow(id=response["id"], title=response["title"], price=response["price"], time_commitment=response["time_commitment"], suspense_level = response["suspense_level"])
-          tvshow.showNewShow();           
-          form.reset(); 
+    event.preventDefault();
 
-        }
-      }); 
-      
-      event.preventDefault();
-
- }); 
-	
-
+  }); 
 
 });
 

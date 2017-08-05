@@ -1,19 +1,21 @@
 <br /> 
-<div>
+<div class="ashow">
 <% @tvshows.each do |tvshow| %>
-  <p>
-    <%= link_to tvshow.title, tvshow_path(tvshow) %>
-     || 
-    $<%= tvshow.price.to_f/100 %> |
-    <strong>time:</strong>  <%= tvshow.time_commitment %> hours |
-    <strong> suspense-level:</strong> <%= tvshow.suspense_level %> |
-    <br /> 
-    <% if user_signed_in? %>
-      <%= button_to 'Add to Playlist', showlines_path(tvshow_id: tvshow) %>
-      **<%= link_to 'Delete', tvshow, :method => :delete %>**
-      **<%= link_to 'Edit', tvshow, :method => :edit  %>**
-    <% end %>
-  </p>
+  <div>
+    <p>
+      <%= link_to tvshow.title, tvshow_path(tvshow) %>
+       || 
+      $<%= tvshow.price.to_f/100 %> |
+      <strong>time:</strong>  <%= tvshow.time_commitment %> hours |
+      <strong> suspense-level:</strong> <%= tvshow.suspense_level %> |
+      <br /> 
+      <% if user_signed_in? %>
+        <%= button_to 'Add to Playlist', showlines_path(tvshow_id: tvshow) %>
+        <button id="delete" data-url="<%= tvshow_path(tvshow) %>" data-method="DELETE">Delete</button>
+        **<%= link_to 'Edit', tvshow, :method => :edit  %>**
+      <% end %>
+    </p>
+  </div>
 <% end %>
 
 

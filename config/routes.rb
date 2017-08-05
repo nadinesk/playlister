@@ -30,8 +30,5 @@ Rails.application.routes.draw do
 
   get '/users/sign_out', to: 'store#index'
 
-
-
-
 end
 
