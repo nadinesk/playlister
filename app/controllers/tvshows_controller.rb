@@ -24,7 +24,7 @@ class TvshowsController < ApplicationController
     @mood = Mood.find(params[:mood_id])
     @tvshow = @mood.tvshows.build(tvshow_params)      
     @mood.save
-    binding.pry
+    
     respond_to do |format| 
       if @tvshow.save      
         format.json {render json: @tvshow}
